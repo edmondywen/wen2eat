@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import Pantry from './components/Pantry.js'
+import Pantry from './Pantry.js'
 import './App.css';
 
 function App() {
