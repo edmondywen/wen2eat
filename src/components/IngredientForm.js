@@ -1,4 +1,6 @@
 import React from 'react'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 
 export const ingredient_form = ({ingChange, onSubmit, expChange, current_ingredient, current_expiration}) => {
     return (
@@ -7,7 +9,7 @@ export const ingredient_form = ({ingChange, onSubmit, expChange, current_ingredi
                 <label>Ingredient:</label><br/>
                 <input type="text" name="ing" onChange={ingChange} value={current_ingredient}/><br/>
                 <label>Expiration:</label><br/>
-                <input type="text" name="exp" onChange={expChange} value={current_expiration}/><br/>
+                <DatePicker selected={current_expiration} onChange={date => expChange(date)}/>
                 <input type="submit" value="Submit" />
             </form>
         </div>

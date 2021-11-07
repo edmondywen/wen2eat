@@ -1,6 +1,6 @@
 import IngredientForm from "./components/IngredientForm"
 import { useEffect, useState } from "react"
-import { onSnapshot, collection, setDoc, doc, addDoc, deleteDoc } from "@firebase/firestore"
+import { onSnapshot, collection, setDoc, doc, addDoc, deleteDoc, Timestamp } from "@firebase/firestore"
 import db from './firebase'
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
   const setupFirestoreListener = () => {
     console.log(db);
     return onSnapshot(collection(db, "ingredients"), (snapshot) =>
-    setIngredients(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}) )
+    setIngredients(snapshot.docs.map((doc) => ({ingredient: doc.data().ingredient, expiration: doc.data().expiration.toDate(), id: doc.id}) )
     ))
   }
   useEffect(setupFirestoreListener, []);
@@ -26,8 +26,8 @@ function App() {
     setNext({...next, ingredient: event.target.value})
   }
 
-  function handleExpChange(event){
-    setNext({...next, expiration: event.target.value})
+  function handleExpChange(date){
+    setNext({...next, expiration: date})
   }
 
   function handleSubmit(event){
@@ -60,7 +60,7 @@ function App() {
       {ingredients.map((entry) => (
         <div>
           <h5>{entry.ingredient}</h5>
-          <h6>{entry.expiration}</h6>
+          <h6>{entry.expiration.toString()}</h6>
         </div>
       ))}
     </div>
