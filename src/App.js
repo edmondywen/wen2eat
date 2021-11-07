@@ -35,6 +35,7 @@ const db = firebase.firestore();
 function makeIngredient(name, expirationdate) {
   return (
     <div class = "ingredient">
+      <p>Placeholder ingredient card, not in database</p>
       <p>Ingredient: {name} </p>
       <p>Expires in: {expirationdate}</p>
       <button > 
@@ -64,6 +65,8 @@ function printDatabase(){
   .then((snapshot) => {console.log(snapshot.docs.map((doc) => doc.data()))}) 
   .catch((error) => console.error("Error getting documents: ", error));
 }
+
+
 function App() {
   return (
     <div className="App">
