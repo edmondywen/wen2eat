@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+
+.ingredient {
+  border-radius: 10px; 
+  border-color: black; 
+  background-color: green; 
+  padding: 10px; 
+}
