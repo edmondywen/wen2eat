@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 
+//Note: Figure out how to move Firebase initialization stuff to firebase.js and 
+//have correct load order 
 
-//Note: move this to firebase.js but I'm too scared to break something rn 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -25,13 +26,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+export const app = firebase.initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-
-
-
-
+//db stays in App.js
 const db = firebase.firestore();
 
 function makeIngredient(name, expirationdate) {
