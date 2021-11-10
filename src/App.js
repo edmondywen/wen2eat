@@ -1,6 +1,8 @@
+//Spoonacular API Key: f87bfe3073584580bd8a6fb6eafa20f8
+
 import IngredientForm from "./components/IngredientForm"
 import { useEffect, useState } from "react"
-import { onSnapshot, collection, setDoc, doc, addDoc, deleteDoc, Timestamp } from "@firebase/firestore"
+import { onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc, Timestamp } from "@firebase/firestore"
 import db from './firebase'
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
       expiration: "",
     }
   )
+
+  const [recepie, setRecepie] = useState(null)
 
   function handleIngChange(event){
     setNext({...next, ingredient: event.target.value})
@@ -52,17 +56,44 @@ function App() {
     )
   }
 
+  function getDate(docRef) 
+  {
+    //const docSnapshot = await getDoc(docRef); 
+  }
+
+  function getRecepie()
+  {
+    fetch(
+      `GET https://api.spoonacular.com/recipes/complexSearch?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&number=1&ingredients=bananas,cinnamon`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setRecepie(data);
+      })
+      .catch(() => {
+        console.log("error");
+      });
+      console.log("recepie is "+{recepie})
+  }
+
   return (
     <div className="body">
-      <h1>Wen2Eat </h1>
+      <h1>Wen2Eat</h1>
       <IngredientForm onSubmit={handleSubmit} ingChange={handleIngChange} expChange={handleExpChange} current_expiration={next.expiration} current_ingredient={next.ingredient}/>
       <button onClick={clearAll}>Clear</button>
+      <p>something blue</p>
+      <button onClick={getRecepie}>wat to eat</button>
+      <div>
+        {recepie}
+      </div>
+
       {ingredients.map((entry) => (
         <div>
           <h5>{entry.ingredient}</h5>
           <h6>{entry.expiration.toString()}</h6>
         </div>
       ))}
+      
     </div>
   );
 }
