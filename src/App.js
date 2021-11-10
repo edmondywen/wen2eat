@@ -2,7 +2,7 @@
 
 import IngredientForm from "./components/IngredientForm"
 import { useEffect, useState } from "react"
-import { onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc, Timestamp } from "@firebase/firestore"
+import {query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from './firebase'
 import RecepieCard from "./components/RecepieCard"
 
@@ -64,6 +64,34 @@ function App() {
     )
   }
 
+  async function getDate(docRef) 
+  {
+    const docSnapshot = await getDoc(docRef);
+    const data = docSnapshot.data() 
+    if(docSnapshot.exists())
+    {
+      let ingredient = data.ingredient; 
+      let expiration = data.expiration.toDate(); 
+      console.log(ingredient + " will expire on " + expiration); 
+      let daystilexpiration = (expiration.getTime() - Date.now()) / (8.64 * Math.pow(10, 7)); 
+      console.log("That's " + daystilexpiration + " days from now"); 
+    }
+  }
+
+
+  async function sortByDate(collectionRef)
+  //not working yet
+  {
+    const ordered = query(collectionRef, orderBy("ingredients", "desc"));
+
+    const querySnapshot = await getDocs(ordered);
+    querySnapshot.forEach((doc) => {
+      console.log("aosdhfbasdkhf" + doc.data().ingredient + " " + doc.data().expiration);
+    });
+    //console.log(ordered); 
+    console.log("asldfbasfd")
+  }
+
   function getRecepie()
   {
     let ingredientString = ""
@@ -89,6 +117,10 @@ function App() {
       <h1>Wen2Eat</h1>
       <IngredientForm onSubmit={handleSubmit} ingChange={handleIngChange} expChange={handleExpChange} current_expiration={next.expiration} current_ingredient={next.ingredient}/>
       <button onClick={clearAll}>Clear</button>
+
+      {/* <button onClick={() => getDate(doc(db, "ingredients", "someid"))}>get date </button>  */}
+      <button onClick={() => sortByDate(collection(db, "ingredients" ))}>Order database by expiration date</button> 
+
       <button onClick={getRecepie}>wat to eat</button>
 
       {ingredients.map((entry) => (

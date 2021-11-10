@@ -16,7 +16,6 @@ const RecepieCard = ({recepie}) => {
           console.log("error");
         });
     }
-
     useEffect(getRecepieLink,[])
 
     return (
