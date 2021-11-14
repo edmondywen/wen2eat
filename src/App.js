@@ -17,10 +17,8 @@ function App() {
   )
 
   const [recepie, setRecepie] = useState([])
-
   const setupFirestoreListener = () => {
     console.log(db);
-    // getRecepie();
     return onSnapshot(collection(db, "ingredients"), (snapshot) => 
       setIngredients(snapshot.docs.map((doc) => (
         {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
@@ -85,9 +83,15 @@ function App() {
     const ordered = query(collectionRef, orderBy("ingredients", "desc"));
 
     const querySnapshot = await getDocs(ordered);
+    if (querySnapshot.empty) 
+    {
+      console.log('no documents found');
+    } 
+  else
+  {
     querySnapshot.forEach((doc) => {
       console.log("aosdhfbasdkhf" + doc.data().ingredient + " " + doc.data().expiration);
-    });
+    }); }
     //console.log(ordered); 
     console.log("asldfbasfd")
   }
@@ -98,6 +102,8 @@ function App() {
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
     console.log(ingredientString)
     fetch(
+      /* TODO
+      make the spoonacular quiery depend on quantity and expiration*/
       `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&number=5&ingredients=${ingredientString}`
     )
       .then((response) => response.json())
@@ -122,8 +128,12 @@ function App() {
       <button onClick={() => sortByDate(collection(db, "ingredients" ))}>Order database by expiration date</button> 
 
       <button onClick={getRecepie}>wat to eat</button>
+      <button onClick={()=>(setRecepie([]))}>clear recipes</button>
 
       {ingredients.map((entry) => (
+        //TODO
+        /*make ingredients display function. Make it so that 
+        expiration displays properly*/
         <div>
           <h5>{entry.ingredient}</h5>
           <h6>{entry.expiration.toString()}</h6>
