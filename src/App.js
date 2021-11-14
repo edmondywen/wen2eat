@@ -2,9 +2,10 @@
 
 import IngredientForm from "./components/IngredientForm"
 import { useEffect, useState } from "react"
-import {query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
+import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from './firebase'
 import RecepieCard from "./components/RecepieCard"
+// import { getDatabase, ref, query, orderByChild } from "firebase/database";
 
 function App() {
   const [ingredients, setIngredients] = useState([])
@@ -45,7 +46,7 @@ function App() {
   async function addIngredient(ingredient)
   {
     const collectionRef = collection(db, 'ingredients')
-    if(!(ingredients.expiration instanceof Date))
+    if(!(ingredient.expiration instanceof Date))
     {
       delete ingredient.expiration
     }
@@ -76,24 +77,30 @@ function App() {
     }
   }
 
-
-  async function sortByDate(collectionRef)
-  //not working yet
+  function compare(a, b)
   {
-    const ordered = query(collectionRef, orderBy("ingredients", "desc"));
+    return a.expiration - b.expiration; 
+  }
 
-    const querySnapshot = await getDocs(ordered);
-    if (querySnapshot.empty) 
-    {
-      console.log('no documents found');
-    } 
-  else
+  async function getSortedIngredients()
   {
+    let ingredients = []; 
+    const querySnapshot = await getDocs(collection(db, "ingredients"));
     querySnapshot.forEach((doc) => {
-      console.log("aosdhfbasdkhf" + doc.data().ingredient + " " + doc.data().expiration);
-    }); }
-    //console.log(ordered); 
-    console.log("asldfbasfd")
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      let ingredientobject = { 
+        ingredient: doc.data().ingredient, 
+        expiration: doc.data().expiration
+      }
+      ingredients.push(ingredientobject); 
+      console.log("Pushed " + ingredientobject.ingredient + " with expiration of " + ingredientobject.expiration); 
+    });
+
+    ingredients.sort(compare); 
+    console.log(ingredients); 
+
+    return ingredients; 
   }
 
   function getRecepie()
@@ -125,7 +132,7 @@ function App() {
       <button onClick={clearAll}>Clear</button>
 
       {/* <button onClick={() => getDate(doc(db, "ingredients", "someid"))}>get date </button>  */}
-      <button onClick={() => sortByDate(collection(db, "ingredients" ))}>Order database by expiration date</button> 
+      <button onClick={() => getSortedIngredients()}>Order database by expiration date</button> 
 
       <button onClick={getRecepie}>wat to eat</button>
       <button onClick={()=>(setRecepie([]))}>clear recipes</button>
