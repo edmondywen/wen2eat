@@ -4,8 +4,8 @@ import IngredientForm from "./components/IngredientForm"
 import { useEffect, useState } from "react"
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from './firebase'
-import RecepieCard from "./components/RecepieCard"
-// import { getDatabase, ref, query, orderByChild } from "firebase/database";
+import RecipeCard from "./components/RecipeCard"
+
 
 function App() {
   const [ingredients, setIngredients] = useState([])
@@ -17,7 +17,7 @@ function App() {
     }
   )
 
-  const [recepie, setRecepie] = useState([])
+  const [recipe, setRecipe] = useState([])
   const setupFirestoreListener = () => {
     console.log(db);
     return onSnapshot(collection(db, "ingredients"), (snapshot) => 
@@ -103,7 +103,7 @@ function App() {
     return ingredients; 
   }
 
-  function getRecepie()
+  function getRecipe()
   {
     let ingredientString = ""
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
@@ -116,13 +116,13 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
-        setRecepie(data)
-        console.log(recepie)
+        setRecipe(data)
+        console.log(recipe)
       })
       .catch(() => {
         console.log("error");
       });
-      // recepie.forEach((rec) => console.log(rec.title))
+      // recipe.forEach((rec) => console.log(rec.title))
   }
 
   return (
@@ -134,8 +134,8 @@ function App() {
       {/* <button onClick={() => getDate(doc(db, "ingredients", "someid"))}>get date </button>  */}
       <button onClick={() => getSortedIngredients()}>Order database by expiration date</button> 
 
-      <button onClick={getRecepie}>wat to eat</button>
-      <button onClick={()=>(setRecepie([]))}>clear recipes</button>
+      <button onClick={getRecipe}>wat to eat</button>
+      <button onClick={()=>(setRecipe([]))}>clear recipes</button>
 
       {ingredients.map((entry) => (
         //TODO
@@ -147,8 +147,8 @@ function App() {
         </div>
       ))}
 
-      {recepie.map((entry) => (
-        <div><RecepieCard recepie={entry}/></div>
+      {recipe.map((entry) => (
+        <div><RecipeCard recipe={entry}/></div>
       ))}
       
     </div>
