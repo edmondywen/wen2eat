@@ -2,21 +2,22 @@ import React from 'react'
 import { useState, useEffect } from "react"
 
 const RecepieCard = ({recepie}) => {
-    const [fullRecepie, setFullRecepie] = useState({sourceUrl:""})
+    // const [fullRecepie, setFullRecepie] = useState({sourceUrl:""})
 
-    function getRecepieLink() 
-    {
-        fetch(
-            `https://api.spoonacular.com/recipes/716429/information?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&id=${recepie.id}`
-        ).then((response) => response.json())
-        .then((fetchedFullRecepie) => {
-          setFullRecepie(fetchedFullRecepie)
-        })
-        .catch(() => {
-          console.log("error");
-        });
-    }
-    useEffect(getRecepieLink,[])
+    
+    // function getRecepieLink() 
+    // {
+    //     fetch(
+    //         `https://api.spoonacular.com/recipes/716429/information?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&id=${recepie.id}`
+    //     ).then((response) => response.json())
+    //     .then((fetchedFullRecepie) => {
+    //       setFullRecepie(fetchedFullRecepie)
+    //     })
+    //     .catch(() => {
+    //       console.log("error");
+    //     });
+    // }
+    // useEffect(getRecepieLink,[])
 
     return (
         <div>
@@ -35,7 +36,9 @@ const RecepieCard = ({recepie}) => {
                 )
                 )}
             </ul>
-            <a href={fullRecepie.sourceUrl}>Go To Recepie</a>
+            <a href={recepie.sourceUrl}>Go To Recepie</a>
+            <br />
+            <img src={recepie.image}></img>
         </div>
     )
 }

@@ -104,12 +104,13 @@ function App() {
     fetch(
       /* TODO
       make the spoonacular quiery depend on quantity and expiration*/
-      `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&number=5&ingredients=${ingredientString}`
-    )
+      // `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&number=5&ingredients=${ingredientString}`
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&includeIngredients=${ingredientString}&sort=max-used-ingredients&addRecipeInformation=true&fillIngredients=true`
+      )
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
-        setRecepie(data)
+        setRecepie(data.results)
         console.log(recepie)
       })
       .catch(() => {
@@ -128,7 +129,7 @@ function App() {
       <button onClick={() => sortByDate(collection(db, "ingredients" ))}>Order database by expiration date</button> 
 
       <button onClick={getRecepie}>wat to eat</button>
-      <button onClick={()=>(setRecepie([]))}>clear recipes</button>
+      <button onClick={()=>(setRecepie([]))}>clear recepies</button>
 
       {ingredients.map((entry) => (
         //TODO
@@ -141,6 +142,7 @@ function App() {
       ))}
 
       {recepie.map((entry) => (
+        // <div>{entry.title} {entry.ingredients}</div>
         <div><RecepieCard recepie={entry}/></div>
       ))}
       
