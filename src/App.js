@@ -17,6 +17,7 @@ function App() {
   )
 
   const [recepie, setRecepie] = useState([])
+
   const setupFirestoreListener = () => {
     console.log(db);
     return onSnapshot(collection(db, "ingredients"), (snapshot) => 
@@ -38,6 +39,7 @@ function App() {
 
   function handleSubmit(event){
     event.preventDefault()
+    // console.log(next.expiration)
     addIngredient(next)
     setNext({ingredient: "", expiration: "",})
   }
@@ -45,7 +47,7 @@ function App() {
   async function addIngredient(ingredient)
   {
     const collectionRef = collection(db, 'ingredients')
-    if(!(ingredients.expiration instanceof Date))
+    if(!(ingredient.expiration instanceof Date))
     {
       delete ingredient.expiration
     }
@@ -75,7 +77,6 @@ function App() {
       console.log("That's " + daystilexpiration + " days from now"); 
     }
   }
-
 
   async function sortByDate(collectionRef)
   //not working yet
@@ -137,7 +138,7 @@ function App() {
         expiration displays properly*/
         <div>
           <h5>{entry.ingredient}</h5>
-          <h6>{entry.expiration.toString()}</h6>
+          <h6>{entry.expiration.toLocaleString().substring(0,10)}</h6>
         </div>
       ))}
 
