@@ -1,0 +1,14 @@
+/* general styling */
+.Ingredient{
+    /* display: flex; */
+    font-weight: bold;
+    /* flex-direction: row;
+    justify-content: center;
+    align-items: center; */
+}
+
+/* components */
+/* button{
+    background-color: white;
+    color: red;
+} */

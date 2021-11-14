@@ -1,5 +1,6 @@
 import Pantry from './Pantry.js'
 import './App.css';
+import './Ingredient.css'
 
 function App() {
   return (

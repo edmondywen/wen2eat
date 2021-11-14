@@ -12,7 +12,11 @@ states:
 
 function Ingredient(props) {
     return (
-        <p>{props.itemName}</p>
+        <div className="Ingredient">
+            <p>{props.itemName}</p>
+            {/* <input type="checkbox"/>
+            <button>x</button> */}
+        </div>
     );
 }
 
