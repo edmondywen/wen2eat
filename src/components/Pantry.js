@@ -38,9 +38,13 @@ function Pantry() {
 
             <input 
                 id="submit-box"
+                placeholder="ingredient"
                 type = "text" 
                 onChange = {(event) => setText(event.target.value)} //event.target is what DOM element is being affected by the event. this is the input tag - grab the value of that
                 value = {text}
+            ></input>
+            <input
+                placeholder="expiration date"
             ></input>
 
             <button

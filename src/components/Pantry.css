@@ -13,14 +13,19 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    border-style: solid;
     border-color: black;
-    border-width: thick;
+    border-width: thin;
+    margin-top: calc(1px + 1vh);
+    margin-bottom: calc(1px + 1vh);
 }
 
 #submit-button{
     color: black;
     border-color: black;
     max-width: 25%;
+    margin-top: calc(1px + 1vh);
+    margin-bottom: calc(1px + 1vh);
 }
 
 #submit-box{
