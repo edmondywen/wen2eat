@@ -49,9 +49,9 @@ function Pantry() {
             <input //TODO: ADD DATE VALIDATION
                 id="date-box"
                 placeholder="expiration date"
-                type="text"
+                type="date"
                 onChange = {(event) => setDate(event.target.value)}
-                value={date}
+                //value={date}
             ></input>
 
             <button

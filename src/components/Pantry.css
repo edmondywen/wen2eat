@@ -49,5 +49,9 @@ button{
     border-style: solid;
 }
 
+p{
+    margin-left: calc(2px + 0.25vw);
+    margin-top: calc(2px + 0.25vw);
+}
 
 
