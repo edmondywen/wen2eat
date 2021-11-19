@@ -1,8 +1,9 @@
 /* general styling */
 .Pantry{
     display: flex;
+    grid-area: "Pantry";
     flex-direction: column;
-    max-width: 50%;
+    /* max-width: 50%; */
     align-items: center;
     /* background-color: orange; */
 }
