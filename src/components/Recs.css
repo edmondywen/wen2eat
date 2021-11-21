@@ -1,0 +1,5 @@
+.Recs{
+    display: flex;
+    grid-area: "Recipes";
+    justify-content: center;
+  }

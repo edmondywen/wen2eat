@@ -5,6 +5,8 @@ Ingredient
 the individual ingredient element. 
 
 props: 
+- itemName: the name of the ingredient itself
+- expDate: the expiration date for the ingredient
 
 states:
 - isFavorite: boolean that indicates if the ingredient should be prioritized during recipe search 
@@ -12,7 +14,12 @@ states:
 
 function Ingredient(props) {
     return (
-        <p>{props.itemName}</p>
+        <div className="Ingredient">
+            <p>{props.itemName}</p>
+            <p>{props.expDate}</p>
+            {/* <input type="checkbox"/>
+            <button>x</button> */}
+        </div>
     );
 }
 

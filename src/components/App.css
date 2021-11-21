@@ -2,6 +2,9 @@
   text-align: center;
 }
 
-/* .Pantry {
+.App-header{
+  display: grid;
+  grid-template-columns: .3fr .7fr;
+  grid-template-areas: "Pantry" "Recipes";
+}
 
-} */
