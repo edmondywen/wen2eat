@@ -1,18 +1,23 @@
 import React from 'react';
 
-//not complete 
 
-export const login_form = ({onSubmit, changeUsername, changePassword}) => {
+export const login_form = ({username, password, handleSubmit, setUsername, setPassword, onSubmitButton}) => {
     return (
         <div>
-            <form onSubmit={onSubmit}>
-                <label>Username:</label><br/>
-                <input type="text" name="username" onChange={changeUsername}/><br/>
-                <label>Password:</label><br/>
-                <input type="password" name="password" onChange={changePassword}/><br/>
-            </form>
+          <p>Hello, {username}!</p>
+          <p>The password you entered is {password}</p>
+          
+          <form onSubmit={(event) => {onSubmitButton(); handleSubmit(event)}}>
+              <label>Username:</label><br/>
+              {/* onChange updates username every time the user enters/deletes a character  */}
+              <input type="text" name="username" onChange={event => setUsername(event.target.value)}/><br/> 
+              <label>Password:</label> <br/> 
+              <input type="password" name="password" onChange={event => setPassword(event.target.value)}/><br/> 
+              <input type="submit" value="Submit"/> 
+          </form>
         </div>
+
     )
 }
 
-export default ingredient_form;
+export default login_form;
