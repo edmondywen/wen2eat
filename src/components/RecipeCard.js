@@ -1,25 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react"
 
-<<<<<<< HEAD:src/components/RecepieCard.js
-const RecepieCard = ({recepie}) => {
-    // const [fullRecepie, setFullRecepie] = useState({sourceUrl:""})
-
-    
-    // function getRecepieLink() 
-    // {
-    //     fetch(
-    //         `https://api.spoonacular.com/recipes/716429/information?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&id=${recepie.id}`
-    //     ).then((response) => response.json())
-    //     .then((fetchedFullRecepie) => {
-    //       setFullRecepie(fetchedFullRecepie)
-    //     })
-    //     .catch(() => {
-    //       console.log("error");
-    //     });
-    // }
-    // useEffect(getRecepieLink,[])
-=======
 const RecipeCard = ({recipe}) => {
     const [fullRecipe, setFullRecipe] = useState({sourceUrl:""})
 
@@ -36,7 +17,6 @@ const RecipeCard = ({recipe}) => {
         });
     }
     useEffect(getRecipeLink,[])
->>>>>>> 0fed98a7088ce033c93b21b594d8da30cc67f6e4:src/components/RecipeCard.js
 
     return (
         <div>
@@ -55,13 +35,7 @@ const RecipeCard = ({recipe}) => {
                 )
                 )}
             </ul>
-<<<<<<< HEAD:src/components/RecepieCard.js
-            <a href={recepie.sourceUrl}>Go To Recepie</a>
-            <br />
-            <img src={recepie.image}></img>
-=======
             <a href={fullRecipe.sourceUrl}>Go To Recipe</a>
->>>>>>> 0fed98a7088ce033c93b21b594d8da30cc67f6e4:src/components/RecipeCard.js
         </div>
     )
 }

@@ -2,9 +2,10 @@
 
 import IngredientForm from "./components/IngredientForm"
 import { useEffect, useState } from "react"
-import {query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
+import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from './firebase'
 import RecipeCard from "./components/RecipeCard"
+
 
 function App() {
   const [ingredients, setIngredients] = useState([])
@@ -15,13 +16,7 @@ function App() {
       expiration: "",
     }
   )
-
-<<<<<<< HEAD
-  const [recepie, setRecepie] = useState([])
-
-=======
   const [recipe, setRecipe] = useState([])
->>>>>>> 0fed98a7088ce033c93b21b594d8da30cc67f6e4
   const setupFirestoreListener = () => {
     console.log(db);
     return onSnapshot(collection(db, "ingredients"), (snapshot) => 
@@ -82,23 +77,30 @@ function App() {
     }
   }
 
-  async function sortByDate(collectionRef)
-  //not working yet
+  function compare(a, b)
   {
-    const ordered = query(collectionRef, orderBy("ingredients", "desc"));
+    return a.expiration - b.expiration; 
+  }
 
-    const querySnapshot = await getDocs(ordered);
-    if (querySnapshot.empty) 
-    {
-      console.log('no documents found');
-    } 
-  else
+  async function getSortedIngredients()
   {
+    let ingredients = []; 
+    const querySnapshot = await getDocs(collection(db, "ingredients"));
     querySnapshot.forEach((doc) => {
-      console.log("aosdhfbasdkhf" + doc.data().ingredient + " " + doc.data().expiration);
-    }); }
-    //console.log(ordered); 
-    console.log("asldfbasfd")
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+      let ingredientobject = { 
+        ingredient: doc.data().ingredient, 
+        expiration: doc.data().expiration
+      }
+      ingredients.push(ingredientobject); 
+      console.log("Pushed " + ingredientobject.ingredient + " with expiration of " + ingredientobject.expiration); 
+    });
+
+    ingredients.sort(compare); 
+    console.log(ingredients); 
+
+    return ingredients; 
   }
 
   function getRecipe()
@@ -115,13 +117,8 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
-<<<<<<< HEAD
-        setRecepie(data.results)
-        console.log(recepie)
-=======
         setRecipe(data)
         console.log(recipe)
->>>>>>> 0fed98a7088ce033c93b21b594d8da30cc67f6e4
       })
       .catch(() => {
         console.log("error");
@@ -136,15 +133,9 @@ function App() {
       <button onClick={clearAll}>Clear</button>
 
       {/* <button onClick={() => getDate(doc(db, "ingredients", "someid"))}>get date </button>  */}
-      <button onClick={() => sortByDate(collection(db, "ingredients" ))}>Order database by expiration date</button> 
-
-<<<<<<< HEAD
-      <button onClick={getRecepie}>wat to eat</button>
-      <button onClick={()=>(setRecepie([]))}>clear recepies</button>
-=======
+      <button onClick={() => getSortedIngredients()}>Order database by expiration date</button> 
       <button onClick={getRecipe}>wat to eat</button>
       <button onClick={()=>(setRecipe([]))}>clear recipes</button>
->>>>>>> 0fed98a7088ce033c93b21b594d8da30cc67f6e4
 
       {ingredients.map((entry) => (
         //TODO
@@ -156,14 +147,8 @@ function App() {
         </div>
       ))}
 
-<<<<<<< HEAD
-      {recepie.map((entry) => (
-        // <div>{entry.title} {entry.ingredients}</div>
-        <div><RecepieCard recepie={entry}/></div>
-=======
       {recipe.map((entry) => (
         <div><RecipeCard recipe={entry}/></div>
->>>>>>> 0fed98a7088ce033c93b21b594d8da30cc67f6e4
       ))}
       
     </div>
