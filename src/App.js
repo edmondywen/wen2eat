@@ -9,7 +9,6 @@ import RecipeCard from "./components/RecipeCard"
 
 function App() {
   const [ingredients, setIngredients] = useState([])
-
   const [next, setNext] = useState(
     {
       ingredient: "",
@@ -17,6 +16,7 @@ function App() {
     }
   )
   const [recipe, setRecipe] = useState([])
+
   const setupFirestoreListener = () => {
     console.log(db);
     return onSnapshot(collection(db, "ingredients"), (snapshot) => 
@@ -106,24 +106,43 @@ function App() {
   function getRecipe()
   {
     let ingredientString = ""
+    //TODO
+    // escape spaces and special chars in ingredient names
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
-    console.log(ingredientString)
+    ingredientString = '+' + ingredientString
     fetch(
       /* TODO
       make the spoonacular quiery depend on quantity and expiration*/
       // `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&number=5&ingredients=${ingredientString}`
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&includeIngredients=${ingredientString}&sort=max-used-ingredients&addRecipeInformation=true&fillIngredients=true`
-      )
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&includeIngredients=${ingredientString}&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
+        )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        setRecipe(data)
+        console.log(data.results)
+        sortRecipes(data.results)
         console.log(recipe)
       })
       .catch(() => {
         console.log("error");
       });
       // recipe.forEach((rec) => console.log(rec.title))
+  }
+
+  sortRecipes(unorderedRecipes)
+  {
+    ingredient_weights = {}
+    current_date = Date.now.getTime()
+    ingredients.forEach((ing) => {
+      daysUntilExp = (ing.expiration.getTime() - current_date) / (1000*3600*24)
+      score = (daysUntilExp >= 1) ? 1/Math.log(daysUntilExp+.5) : 0
+      ingredient_weights[ing.ingredient] = score
+    })
+    orderedRecipes = []
+    unorderedRecipes.forEach((recipe) => {
+      score
+      
+    })
+    setRecipe(orderedRecipes)
   }
 
   return (
