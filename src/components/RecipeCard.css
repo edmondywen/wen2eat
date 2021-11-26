@@ -1,0 +1,47 @@
+.RecipeCard{
+    /* display */
+    display: grid;
+    grid-template-columns: .2fr .6fr .2fr;
+    grid-template-areas: "recipe-image recipe-desc recipe-fav";
+
+    /* border and margins */
+    border-style: solid;
+    border-color: black;   
+    border-radius: 10px;
+    margin-top: calc(10px + 1vh);
+    margin-bottom: calc(10px + 1vh);
+}
+
+.Title{
+    font-weight: bold;
+}
+
+.Recipe-Image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-area: "recipe-image";
+
+}
+
+img{
+    width: calc(100px + 1vh);
+    height: calc(100px + 1vh);
+}
+
+.Recipe-Description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-area: "recipe-desc";
+}
+
+.Recipe-Fav-Select{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-area: "recipe-fav";
+}
