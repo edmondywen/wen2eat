@@ -1,8 +1,10 @@
-/* general styling yoinked from Edmond*/
-.DRList {
+ul {
+    list-style-type: none;
+}
+
+.DietaryRestrictions {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .DRListItem {

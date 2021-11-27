@@ -22,8 +22,13 @@ function Pantry() {
         <div className="Pantry">
             <h1>Pantry</h1>
             <div className="Links">
-                <Link to="/pantry">Pantry</Link> | {" "}
-                <Link to="/dr">Dietary Restrictions</Link>
+                {/* <Link to="/pantry">Pantry</Link> | {" "} */}
+                <Link to="/dr">
+                    <button type = "button">
+                        {/* <img src = "../Images/flip-arrow.png"/> */}
+                        Dietary Restrictions
+                    </button>
+                </Link>
             </div>
 
             {items.map((element, index) => {
