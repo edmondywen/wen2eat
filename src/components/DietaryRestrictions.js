@@ -12,8 +12,13 @@ function DietaryRestrictions(){
         <div className="DR">
             <h1>Dietary Restrictions :)</h1>
             <div className="Links">
-                <Link to="/pantry">Pantry</Link> | {" "}
-                <Link to="/dr">Dietary Restrictions</Link>
+                <Link to="/pantry">
+                    <button type = "button">
+                        Pantry
+                    </button>
+                </Link>
+                 {/* | {" "} */}
+                {/* <Link to="/dr">Dietary Restrictions</Link> */}
             </div>
 
             {items.map((element, index) => {
