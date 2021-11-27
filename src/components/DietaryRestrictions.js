@@ -13,7 +13,7 @@ function DietaryRestrictions(){
             <h1>Dietary Restrictions :)</h1>
             <div className="Links">
                 <Link to="/pantry">
-                    <button type = "button">
+                    <button id = "Linkbutton">
                         Pantry
                     </button>
                 </Link>

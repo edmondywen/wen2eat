@@ -24,7 +24,7 @@ function Pantry() {
             <div className="Links">
                 {/* <Link to="/pantry">Pantry</Link> | {" "} */}
                 <Link to="/dr">
-                    <button type = "button">
+                    <button id = "Linkbutton">
                         {/* <img src = "../Images/flip-arrow.png"/> */}
                         Dietary Restrictions
                     </button>
