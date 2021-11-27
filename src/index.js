@@ -5,7 +5,7 @@ import App from './components/App.js';
 import Pantry from './components/Pantry.js'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import DietaryRestrictions from './components/DietaryRestrictions';
+import DietaryRestrictions from './components/DietaryRestrictions.js';
 
 ReactDOM.render(
   <React.StrictMode>
