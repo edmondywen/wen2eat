@@ -15,7 +15,7 @@ states:
 */
 
 function Pantry() {
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([]); //array of 2 item arrays where [0] is the item name and [1] is the exp date
     const [text, setText] = useState(""); //submit box text 
     const [date, setDate] = useState(""); //expiration date. 
     return (

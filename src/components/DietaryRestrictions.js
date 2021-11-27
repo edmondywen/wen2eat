@@ -9,7 +9,7 @@ function DietaryRestrictions(){
     const [items, setItems] = useState([]);
     const [text, setText] = useState(""); // submit box
     return(
-        <div className="DR">
+        <div className="DRList">
             <h1>Dietary Restrictions :)</h1>
             <div className="Links">
                 <Link to="/pantry">
@@ -20,13 +20,11 @@ function DietaryRestrictions(){
                  {/* | {" "} */}
                 {/* <Link to="/dr">Dietary Restrictions</Link> */}
             </div>
-
             {items.map((element, index) => {
                 return (
                     <>
-                        <div className="DRItem">
+                        <div className="DRListItem">
                             <DRItem itemName={element} />
-                            <input type="checkbox" />
                             <button // delete button
                                 onClick={() => {
                                     let newItems = [
