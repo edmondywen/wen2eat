@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Outlet, Link } from "react-router-dom";
+import './Links.css'
 import './Pantry.css'
 import Ingredient from './Ingredient.js'
 
@@ -19,7 +21,11 @@ function Pantry() {
     return (
         <div className="Pantry">
             <h1>Pantry</h1>
-            
+            <div className="Links">
+                <Link to="/pantry">Pantry</Link> | {" "}
+                <Link to="/dr">Dietary Restrictions</Link>
+            </div>
+
             {items.map((element, index) => {
                 return (
                     <div className="Pantry-Item">

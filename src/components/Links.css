@@ -1,0 +1,9 @@
+.Links{
+    display: flex;
+    
+}
+
+Link{
+    font-weight: bold;
+    text-decoration: none;
+}

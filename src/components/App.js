@@ -1,5 +1,6 @@
 import Pantry from './Pantry.js'
 import Recs from './Recs.js'
+import { Link, Outlet } from "react-router-dom"
 import './App.css';
 import './Ingredient.css'
 
@@ -17,7 +18,7 @@ function App() {
     "id": 2, 
     "recipe": {
       "title": "Name of food prime", 
-      "description": "We're no strangers to love You know the rules and so do I A full commitment's what I'm thinking of You wouldn't get this from any other guy", 
+      "description": "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway, because bees don't care what humans think is impossible.", 
       "faved": "Whether this food is a favorite prime"
     }
   };
@@ -25,10 +26,12 @@ function App() {
   let recs = [rec1, rec2];
   return (
     <div className="App">
-      <header className="App-header">
-        <Pantry></Pantry>
+      <div className="App-header">
+      </div>
+      <div className="App-body">
+        <Outlet></Outlet>
         <Recs data={recs}></Recs>
-      </header>
+      </div>
     </div>
   );
 }

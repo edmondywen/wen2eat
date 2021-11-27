@@ -3,8 +3,11 @@
     display: flex;
     grid-area: "Pantry";
     flex-direction: column;
-    /* max-width: 50%; */
     align-items: center;
+    border-right-style: solid;
+    border-right-color: black;
+    height: 100%;
+    margin-right: calc(5px + 1vw);
     /* background-color: orange; */
 }
 
