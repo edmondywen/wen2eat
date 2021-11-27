@@ -1,9 +1,6 @@
 import Pantry from './Pantry.js'
 import Recs from './Recs.js'
-import { useEffect, useState } from "react"
 import { Link, Outlet } from "react-router-dom"
-import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
-import db from '../firebase'
 import './App.css';
 import './Ingredient.css'
 

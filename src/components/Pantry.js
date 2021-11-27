@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react"
 import { Outlet, Link } from "react-router-dom";
 import './Links.css'
 import './Pantry.css'
 import Ingredient from './Ingredient.js'
+import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
+import db from '../firebase'
 
 /*
 PANTRY 
@@ -15,9 +17,60 @@ states:
 */
 
 function Pantry() {
-    const [items, setItems] = useState([]); //array of 2 item arrays where [0] is the item name and [1] is the exp date
+    const [items, setItems] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
     const [text, setText] = useState(""); //submit box text 
     const [date, setDate] = useState(""); //expiration date. 
+
+    const setupFirestoreListener = () => {
+        console.log(db);
+        return onSnapshot(collection(db, "ingredients"), (snapshot) => 
+          setItems(snapshot.docs.map((doc) => (
+            {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
+            ))
+        ))
+      }
+      useEffect(setupFirestoreListener, []);
+
+      const submit = () => {
+        if (text === ""){
+            alert("add an ingredient");
+            return;
+        }
+        const ingredient = {ingredient: text, expiration: date}
+        addIngredient(ingredient)
+        // let newItems = items.slice().concat([{
+        //     name: text, 
+        //     expiration: date,
+        // }]);
+        // setItems(newItems);
+        setText("");
+        console.log(items);
+        setDate("");
+    }
+
+    async function deleteItem(element)
+    {
+        items.forEach(
+            async (result) => {
+                if(result.id === element.id)
+                {
+                    const docRef = doc(db, "ingredients", result.id)
+                    await deleteDoc(docRef)
+                }
+            }
+          )
+    }
+
+    async function addIngredient(ingredient)
+    {
+      const collectionRef = collection(db, 'ingredients')
+      if(!(ingredient.expiration instanceof Date))
+      {
+        delete ingredient.expiration
+      }
+      await addDoc(collectionRef, ingredient)
+    }
+
     return (
         <div className="Pantry">
             <h1>Pantry</h1>
@@ -34,17 +87,10 @@ function Pantry() {
             {items.map((element, index) => {
                 return (
                     <div className="Pantry-Item">
-                        <Ingredient itemName = {element[0]} expDate = {element[1]}/>
+                        <Ingredient itemName = {element.ingredient} expDate = {element.expiration.toLocaleString().substring(0,10)}/>
                         <input type="checkbox"/>
                         <button //delete button
-                        onClick = {() => {
-                            let newItems = [
-                                ...items.slice(0,index),
-                                ...items.slice(index + 1),
-                            ];
-                            setItems(newItems);
-                        }}>
-                            x
+                        onClick = {()=>(deleteItem(element))}>
                         </button>
                     </div>
                 )
@@ -67,17 +113,7 @@ function Pantry() {
 
             <button
                 id="submit-button"
-                onClick={() => {
-                    if (text === ""){
-                        alert("add an ingredient");
-                        return;
-                    }
-                    let newItems = items.slice().concat([[text, date]]);
-                    setItems(newItems);
-                    setText("");
-                    console.log(items);
-                    setDate("");
-                }}
+                onClick={submit}
             > 
                 Submit 
             </button>
