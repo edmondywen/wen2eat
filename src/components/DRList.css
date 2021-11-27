@@ -1,0 +1,53 @@
+/* general styling yoinked from Edmond*/
+.DRList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DRItem {
+    display: flex;
+    font-weight: bold;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-style: solid;
+    border-color: black;
+    border-width: thin;
+    margin-top: calc(1px + 1vh);
+    margin-bottom: calc(1px + 1vh);
+}
+
+#submit-button {
+    color: black;
+    border-color: black;
+    max-width: 25%;
+    margin-top: calc(1px + 1vh);
+    margin-bottom: calc(1px + 1vh);
+    transition-duration: 0.4s;
+}
+
+#submit-button:hover {
+    background-color: green;
+}
+
+#submit-box {
+    max-width: 25%;
+}
+
+/* tags */
+ul {
+    list-style-type: none;
+}
+
+button {
+    background-color: white;
+    color: red;
+    border-color: white;
+    border-style: solid;
+}
+
+p {
+    margin-left: calc(2px + 0.25vw);
+    margin-top: calc(2px + 0.25vw);
+}
