@@ -119,7 +119,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.results)
-        sortRecipes(data.results)
+        setRecipe(data.results)
         console.log(recipe)
       })
       .catch(() => {
@@ -128,22 +128,22 @@ function App() {
       // recipe.forEach((rec) => console.log(rec.title))
   }
 
-  sortRecipes(unorderedRecipes)
-  {
-    ingredient_weights = {}
-    current_date = Date.now.getTime()
-    ingredients.forEach((ing) => {
-      daysUntilExp = (ing.expiration.getTime() - current_date) / (1000*3600*24)
-      score = (daysUntilExp >= 1) ? 1/Math.log(daysUntilExp+.5) : 0
-      ingredient_weights[ing.ingredient] = score
-    })
-    orderedRecipes = []
-    unorderedRecipes.forEach((recipe) => {
-      score
+  // sortRecipes(unorderedRecipes)
+  // {
+  //   ingredient_weights = {}
+  //   current_date = Date.now.getTime()
+  //   ingredients.forEach((ing) => {
+  //     daysUntilExp = (ing.expiration.getTime() - current_date) / (1000*3600*24)
+  //     score = (daysUntilExp >= 1) ? 1/Math.log(daysUntilExp+.5) : 0
+  //     ingredient_weights[ing.ingredient] = score
+  //   })
+  //   orderedRecipes = []
+  //   unorderedRecipes.forEach((recipe) => {
+  //     score
       
-    })
-    setRecipe(orderedRecipes)
-  }
+  //   })
+  //   setRecipe(orderedRecipes)
+  // }
 
   return (
     <div className="body">
