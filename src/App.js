@@ -8,23 +8,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect, Link} from "react-rou
 import db from './firebase'
 import {collection, getDocs, onSnapshot} from "@firebase/firestore"
 
-const sampleuser = "forgetfulperson"; //Hardcoded username/password for testing purposes
-const samplepassword = "passwd"; 
-//let authenticating = false; 
 
-
-
-async function getQuerySnapshot()
-{
-  //Search the collection "users" for a document with matching username and password 
-  const querySnapshot = await getDocs(collection(db, "users"));  
-  console.log("getQuerySnapshot was called")
-  // querySnapshot.forEach((doc) => {
-  //   // doc.data() is never undefined for query doc snapshots
-  //   console.log(doc.id, " => ", doc.data());
-  // });
-  return querySnapshot; 
-}
 
 function renderLoginResult(username, password, submittedForm, users)
 {
