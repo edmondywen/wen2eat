@@ -3,6 +3,7 @@ import Recs from './Recs.js'
 import { Link, Outlet } from "react-router-dom"
 import './App.css';
 import './Ingredient.css'
+import './Links.css'
 
 function App() {
   let rec1 = {
@@ -27,6 +28,9 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
+        <h1>hey, are you wondering what to make &</h1>
+        <img src = "https://i.imgur.com/on0rQlH.png"></img>
+        <h1>?</h1>
       </div>
       <div className="App-body">
         <Outlet></Outlet>

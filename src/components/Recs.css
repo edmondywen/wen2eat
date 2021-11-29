@@ -2,4 +2,6 @@
     display: flex;
     grid-area: "Recipes";
     justify-content: center;
+
+    height: 100vh;
   }
