@@ -79,7 +79,7 @@ function Pantry() {
                 <Link to="/dr">
                     <button id = "Linkbutton">
                         {/* <img src = "../Images/flip-arrow.png"/> */}
-                        Flip to Dietary Restrictions
+                        Dietary Restrictions
                     </button>
                 </Link>
             </div>
@@ -91,7 +91,6 @@ function Pantry() {
                         <input type="checkbox"/>
                         <button //delete button
                         onClick = {()=>(deleteItem(element))}>
-                            x
                         </button>
                     </div>
                 )

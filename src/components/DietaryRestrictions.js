@@ -2,7 +2,6 @@ import {useState} from "react";
 import { Outlet, Link } from "react-router-dom";
 import './Links.css'
 import './DRList.css'
-import './Links.css'
 import DRItem from "./DRItem";
 
 function DietaryRestrictions(){
@@ -14,7 +13,7 @@ function DietaryRestrictions(){
             <div className="Links">
                 <Link to="/pantry">
                     <button id = "Linkbutton">
-                        Pantry
+                        Flip to Pantry
                     </button>
                 </Link>
                  {/* | {" "} */}
