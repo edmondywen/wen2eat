@@ -8,12 +8,26 @@
 }
 
 .App-header{
-  display: flex;
-  flex-direction: row;
+  display: grid;
   grid-area: "app-header";
+  grid-template-columns: .7fr .3fr;
+  grid-template-areas: "header-text" "login-button-area";
   margin-left: calc(2px + 0.25vw);
   margin-top: calc(2px + 0.25vw);
   align-items: center;
+}
+
+.Header-text{
+  display: flex;
+  align-content: center;
+  margin-left: calc(2px + 5vw);
+  grid-area: "header-text"
+}
+
+.Login-button-area{
+  display: flex;
+  margin-left: calc(2px + 5vw);
+  grid-area: "login-button-area"
 }
 
 .App-body{

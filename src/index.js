@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import DietaryRestrictions from './components/DietaryRestrictions.js';
 
+import TempLogin from './components/TempLogin.js'
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -15,6 +17,7 @@ ReactDOM.render(
           <Route path="" element={<Pantry />}/>
           <Route path="pantry" element={<Pantry />}/>
           <Route path="dr" element={<DietaryRestrictions/>}/>
+          <Route path="login" element={<TempLogin/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
