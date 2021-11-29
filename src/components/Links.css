@@ -20,6 +20,8 @@ Link{
     margin-bottom: calc(1px + 1vh);
     transition-duration: 0.4s;
     border-radius: 5px;
+
+    font-size: medium;
 }
 
 #Linkbutton:hover{
