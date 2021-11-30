@@ -87,7 +87,7 @@ function Login() {
   return (
   
     <div className="Login">
-      <h1>Wen2Eat</h1>
+      <h1>wen2eat</h1>
     
       <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
     

@@ -54,20 +54,19 @@ function App() {
     <div className="App">
       <div className="App-header">
         <div className="Header-text">
-          <h1>hey, are you wondering what to make &</h1>
           <img src = "https://i.imgur.com/on0rQlH.png" alt="wen2eat logo"></img>
-          <h1>?</h1>
+          <h1>hey, are you wondering what to make & wen2eat?</h1>
         </div>
         <div className="Login-button-area">
           <div className="Links">
-                <Link to="/login">
-                    <button id = "Linkbutton">
-                        Login
-                    </button>
-                </Link>
-                 {/* | {" "} */}
-                {/* <Link to="/dr">Dietary Restrictions</Link> */}
-            </div>
+              <Link to="/login">
+                  <button id = "Linkbutton">
+                      Login
+                  </button>
+              </Link>
+                {/* | {" "} */}
+              {/* <Link to="/dr">Dietary Restrictions</Link> */}
+          </div>            
         </div>
       </div>
       <div className="App-body">

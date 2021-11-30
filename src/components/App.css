@@ -10,7 +10,7 @@
 .App-header{
   display: grid;
   grid-area: "app-header";
-  grid-template-columns: .7fr .3fr;
+  grid-template-columns: .8fr .2fr;
   grid-template-areas: "header-text" "login-button-area";
   margin-left: calc(2px + 0.25vw);
   margin-top: calc(2px + 0.25vw);

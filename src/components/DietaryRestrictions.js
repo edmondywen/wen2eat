@@ -54,7 +54,7 @@ function DietaryRestrictions(){
     //     )
     // }
     let target = {value: 'gluten free'};
-    let diet_options = ['ketogenic', 'vegetarian', 'ovo-vegetarian', 'gluten free', 'lacto-vegetarian', 'vegan',
+    let diet_options = ['gluten free', 'ketogenic', 'vegetarian', 'ovo-vegetarian', 'lacto-vegetarian', 'vegan',
                                 'pescetarian', 'paleo', 'primal', 'low FODMAP', 'whole30'];
     let intolerance_options = ['dairy', 'egg', 'gluten', 'grain', 'peanut', 'seafood', 'sesame',
                                 'shellfish', 'soy', 'sulfite', 'tree nut', 'wheat'];
