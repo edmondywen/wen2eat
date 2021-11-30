@@ -10,6 +10,9 @@ import DietaryRestrictions from './components/DietaryRestrictions.js';
 import {Login} from './components/TempLogin.js'
 import LoginSuccess from "./components/LoginSuccess"
 import LoginFail from "./components/LoginFail"
+import CreateAccount from "./components/CreateAccount"
+import CreateAccountForm from "./components/CreateAccountForm"
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,6 +26,8 @@ ReactDOM.render(
         <Route path="login" element={<Login/>}/>
         <Route path="LoginSuccess" element={<LoginSuccess/>}/>
         <Route path="LoginFail" element={<LoginFail/>}/>
+
+        <Route path="CreateAccount" element={<CreateAccount/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
