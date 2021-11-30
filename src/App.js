@@ -4,9 +4,9 @@ import LoginForm from "./components/LoginForm"
 import LoginSuccess from "./components/LoginSuccess"
 import LoginFail from "./components/LoginFail"
 import React, { useEffect, useState } from "react"
-import { BrowserRouter as Router, Route, Switch, Redirect, Link} from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, Navigate, Link} from "react-router-dom"
 import db from './firebase'
-import {collection, getDocs, onSnapshot} from "@firebase/firestore"
+import {collection, onSnapshot} from "@firebase/firestore"
 
 
 
@@ -31,12 +31,12 @@ function LoginResult(props)
     if(props.username == props.users[i].username && props.password == props.users[i].password)
     {
       console.log("Found a match")
-      return <Redirect to= "LoginSuccess"></Redirect>; 
+      return <Navigate to= "LoginSuccess"></Navigate>; 
     }
   }
   if(i == len)
   {
-    return <Redirect to= "LoginFail"></Redirect>; 
+    return <Navigate to= "LoginFail"></Navigate>; 
   }
 
 
@@ -71,23 +71,14 @@ function App() {
     <Router>
     <div className="body">
       <h1>Wen2Eat</h1>
-      <Switch>
-        <Route exact path = "/"> 
-          {/* <button onClick={() => seeDocs(username, password)}>Click me to test querySnapshot</button> */}
-          
-          <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)}></LoginForm>
+      <Routes>
+        <Route path = "/" element = {<LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)}></LoginForm>} />
 
-        </Route>
+        <Route path="LoginSuccess/*" element = {<LoginSuccess />} />
 
-        <Route exact path="/LoginSuccess">
-          <LoginSuccess />
-        </Route>
+        <Route path="LoginFail/*" element = {<LoginFail resetSubmit = {() => setSubmittedForm(false)} resetUsername = {() => setUsername("")} resetPassword = {() => setPassword("")}/>} />
 
-        <Route exact path="/LoginFail">
-          <LoginFail resetSubmit = {() => setSubmittedForm(false)} resetUsername = {() => setUsername("")} resetPassword = {() => setPassword("")}/>
-        </Route>
-
-      </Switch>
+      </Routes>
     </div>
     
     {console.log(users)}
