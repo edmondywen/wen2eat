@@ -54,24 +54,28 @@ function Recs({ingredients, data}) {
         }
       });
    }
-
+  
     function getAllRecipes() {
         // Receives all props from Recs
-        return (recipe && recipe.map( (rec) => {
-                return (<RecipeCard 
-                    title={rec.title}
-                    description={rec.summary} 
-                    faved="your mom"
-                />)
-            }
-        )
-        );
+        return (recipe && recipe.map( (rec) => {   
+          console.log(rec);
+          let summary = rec.summary.replace( /(<([^>]+)>)/ig, '');
+          let index = summary.indexOf("All things considered, we decided this recipe deserves a spoonacular score");
+          summary = summary.slice(0, index); //remove a weird spoonacular score section in the description 
+          return (<RecipeCard 
+            title={rec.title}
+            description={summary} 
+            image={rec.image}
+            link={rec.sourceUrl}
+            faved="your mom"
+        />)
+        }));
     }
 
     return(
         <div className="Recs">
             <h1>Recommendations</h1>
-            <button onClick={() => getRecipe(0)}>Get Recepies! 🥧</button>
+            <button onClick={() => getRecipe(1)}>Get Recepies! 🥧</button>
             {getAllRecipes()}
         </div>   
     );

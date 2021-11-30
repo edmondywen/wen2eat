@@ -8,7 +8,8 @@ displays a single recipe card
 props: 
 title - title of recipe
 description - description of the recipe
-
+image - url to a picture of the dish 
+link - link to the recipe itself
 */
 
 function RecipeCard(props) {
@@ -16,11 +17,11 @@ function RecipeCard(props) {
         <div className="RecipeCard">
             <div className="Recipe-Image">
                 <img 
-                    src="https://www.jessicagavin.com/wp-content/uploads/2020/01/how-to-cook-bok-choy-10-1200.jpg"
+                    src={props.image}
                 ></img>
             </div>
             <div className="Recipe-Description">
-                <p className="Title"> {props.title} </p>      
+                <p className="Title"> {props.title} |  <a href = {props.link} target='_blank'>recipe</a></p>   
                 <p className="Description"> {props.description} </p>
             </div>
             <div className="Recipe-Fav-Select">
