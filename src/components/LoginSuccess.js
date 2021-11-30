@@ -1,11 +1,11 @@
 import React from 'react'; 
-import {Link } from "react-router-dom"
+import {Link, Navigate } from "react-router-dom"
 
 export const LoginSuccess= () => {
     return (
         <div>
             <p>Login successful</p>
-            <Link to = "/">See your pantry</Link>
+            <Navigate to = "/">See your pantry</Navigate>
         </div>
     )
     //TODO: display the user's pantry 
