@@ -91,7 +91,7 @@ function Pantry() {
                 return (
                     <div className="Pantry-Item">
                         <Ingredient itemName = {element.ingredient} expDate = {element.expiration.toLocaleString().substring(0,10)}/>
-                        <input type="checkbox"/>
+                        {/* <input type="checkbox"/> */}
                         <button //delete button
                         onClick = {()=>(deleteItem(element))}>
                             x

@@ -49,3 +49,18 @@ img{
     align-items: center;
     grid-area: "recipe-fav";
 }
+
+.star {
+    visibility:hidden;
+    font-size:30px;
+    cursor:pointer;
+}
+.star:before {
+    content: "\2606";
+    visibility:visible;
+}
+.star:checked:before {
+    /* content is some sort of built in thing */
+    content: "\2605"; 
+    color: #FCD12A;
+}

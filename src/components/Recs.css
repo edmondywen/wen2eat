@@ -19,6 +19,7 @@
   margin-top: calc(1px + 1vh);
   margin-bottom: calc(1px + 1vh);
   transition-duration: 0.4s;
+  cursor: pointer;
 }
 
 #Recepie-Button:hover{

@@ -26,9 +26,11 @@ function RecipeCard(props) {
             </div>
             <div className="Recipe-Fav-Select">
                 <input
+                    class="star"
                     id="favorite-recipe"
                     placeholder="favorite"
                     type = "checkbox" 
+                    // checked
                 ></input>
             </div>
         </div>
