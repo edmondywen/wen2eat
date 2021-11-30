@@ -5,7 +5,7 @@ import './Pantry.css'
 import Ingredient from './Ingredient.js'
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
-import {userCollectionID} from "./TempLogin.js"
+import {userCollectionID} from "./Login.js"
 
 /*
 PANTRY 
@@ -29,10 +29,10 @@ function Pantry() {
             {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
             ))
         ))
-      }
-      useEffect(setupFirestoreListener, []);
+    }
+    useEffect(setupFirestoreListener, []);
 
-      const submit = () => {
+    const submit = () => {
         if (text === ""){
             alert("add an ingredient");
             return;

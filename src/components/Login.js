@@ -5,6 +5,7 @@ import LoginForm from "./LoginForm"
 import LoginSuccess from "./LoginSuccess"
 import LoginFail from "./LoginFail"
 import React, { useEffect, useState } from "react"
+import './Login.css'
 import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
 import db from '../firebase'
 import {collection, onSnapshot} from "@firebase/firestore"
@@ -85,7 +86,7 @@ function Login() {
 
   return (
   
-    <div className="body">
+    <div className="Login">
       <h1>Wen2Eat</h1>
     
       <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>

@@ -1,9 +1,9 @@
-import Pantry from './Pantry.js'
 import Recs from './Recs.js'
 import { Link, Outlet } from "react-router-dom"
 import './App.css';
 import './Ingredient.css'
 import './Links.css'
+import {userCollectionID} from "./Login.js"
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
 import { useEffect, useState } from "react"
@@ -13,12 +13,22 @@ function App() {
   
   const setupFirestoreListener = () => {
     console.log(db);
-    return onSnapshot(collection(db, "ingredients"), (snapshot) => 
+    return onSnapshot(collection(db, userCollectionID), (snapshot) => 
       setIngredients(snapshot.docs.map((doc) => (
         {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
         ))
     ))
   }
+
+  // const setupFirestoreListener = () => {
+  //   console.log(db);
+  //   return onSnapshot(collection(db, userCollectionID), (snapshot) => 
+  //     setItems(snapshot.docs.map((doc) => (
+  //       {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
+  //       ))
+  //   ))
+  // } 
+
   useEffect(setupFirestoreListener, []);
 
   let rec1 = {

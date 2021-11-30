@@ -1,11 +1,12 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom'
+import './LoginForm.css'
 
 export const login_form = ({username, password, handleSubmit, setUsername, setPassword, onSubmitButton}) => {
     return (
-        <div>
+        <div className = "Login-Form">
           <p>Hello, {username}!</p>
-          <p>The password you entered is {password}</p>
+          {/* <p>The password you entered is {password}</p> */}
           
           <form onSubmit={(event) => {onSubmitButton(); handleSubmit(event); }}>
               <label>Username:</label><br/>
@@ -15,6 +16,7 @@ export const login_form = ({username, password, handleSubmit, setUsername, setPa
               <input type="password" name="password" onChange={event => setPassword(event.target.value)}/><br/> 
               <input type="submit" value="Submit"/> 
           </form>
+          <Link to="/CreateAccount">Create Account</Link>
         </div>
 
     )
