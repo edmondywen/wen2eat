@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { Outlet, Link } from "react-router-dom";
 import './Links.css'
 import './Pantry.css'
 import Ingredient from './Ingredient.js'
+import IngredientContext from './IngredientContext.js';
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
 
@@ -17,7 +18,8 @@ states:
 */
 
 function Pantry() {
-    const [items, setItems] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
+    // const [items, setItems] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
+    const { items, setItems } = useContext(IngredientContext);
     const [text, setText] = useState(""); //submit box text 
     const [date, setDate] = useState(""); //expiration date. 
 
@@ -83,7 +85,7 @@ function Pantry() {
                     </button>
                 </Link>
             </div>
-
+            
             {items.map((element, index) => {
                 return (
                     <div className="Pantry-Item">

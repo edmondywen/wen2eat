@@ -1,11 +1,14 @@
-import Pantry from './Pantry.js'
+// import Pantry from './Pantry.js'
 import Recs from './Recs.js'
+import IngredientContext from './IngredientContext.js';
 import { Link, Outlet } from "react-router-dom"
+import { useContext, createContext, useState } from 'react';
 import './App.css';
 import './Ingredient.css'
 import './Links.css'
 
 function App() {
+  const [items, setItems] = useState([]);
   let rec1 = {
     "id": 1, 
     "recipe": {
@@ -45,10 +48,13 @@ function App() {
             </div>
         </div>
       </div>
-      <div className="App-body">
-        <Outlet></Outlet>
-        <Recs data={recs}></Recs>
-      </div>
+      console.log(items);
+      <IngredientContext.Provider value={items}>
+        <div className="App-body">
+          <Outlet></Outlet>
+          <Recs data={recs}></Recs>
+        </div>
+      </IngredientContext.Provider>
     </div>
   );
 }
