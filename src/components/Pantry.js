@@ -5,6 +5,7 @@ import './Pantry.css'
 import Ingredient from './Ingredient.js'
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
+import {userCollectionID} from "./TempLogin.js"
 
 /*
 PANTRY 
@@ -23,7 +24,7 @@ function Pantry() {
 
     const setupFirestoreListener = () => {
         console.log(db);
-        return onSnapshot(collection(db, "ingredients"), (snapshot) => 
+        return onSnapshot(collection(db, userCollectionID), (snapshot) => 
           setItems(snapshot.docs.map((doc) => (
             {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
             ))
@@ -49,7 +50,7 @@ function Pantry() {
             async (result) => {
                 if(result.id === element.id)
                 {
-                    const docRef = doc(db, "ingredients", result.id)
+                    const docRef = doc(db, userCollectionID, result.id)
                     await deleteDoc(docRef)
                 }
             }
@@ -58,7 +59,7 @@ function Pantry() {
 
     async function addIngredient(ingredient)
     {
-      const collectionRef = collection(db, 'ingredients')
+      const collectionRef = collection(db, userCollectionID)
       console.log(ingredient['expiration'])
       ingredient['expiration'] = new Date(ingredient.expiration)
       console.log(ingredient['expiration'])
