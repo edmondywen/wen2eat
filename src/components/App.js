@@ -62,7 +62,7 @@ function App() {
       </div>
       <div className="App-body">
         <Outlet></Outlet>
-        <Recs data={recs} ings={ingredients}></Recs>
+        <Recs data={recs} ingredients={ingredients}></Recs>
       </div>
     </div>
   );
