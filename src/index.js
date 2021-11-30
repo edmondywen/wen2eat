@@ -17,8 +17,8 @@ ReactDOM.render(
           <Route path="" element={<Pantry />}/>
           <Route path="pantry" element={<Pantry />}/>
           <Route path="dr" element={<DietaryRestrictions/>}/>
-          <Route path="login" element={<TempLogin/>}/>
         </Route>
+        <Route path="login" element={<TempLogin/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
