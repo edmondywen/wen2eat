@@ -4,8 +4,23 @@ import { Link, Outlet } from "react-router-dom"
 import './App.css';
 import './Ingredient.css'
 import './Links.css'
+import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
+import db from '../firebase'
+import { useEffect, useState } from "react"
 
 function App() {
+  const [ingredients, setIngredients] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
+  
+  const setupFirestoreListener = () => {
+    console.log(db);
+    return onSnapshot(collection(db, "ingredients"), (snapshot) => 
+      setIngredients(snapshot.docs.map((doc) => (
+        {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
+        ))
+    ))
+  }
+  useEffect(setupFirestoreListener, []);
+
   let rec1 = {
     "id": 1, 
     "recipe": {
@@ -47,7 +62,7 @@ function App() {
       </div>
       <div className="App-body">
         <Outlet></Outlet>
-        <Recs data={recs}></Recs>
+        <Recs data={recs} ings={ingredients}></Recs>
       </div>
     </div>
   );
