@@ -61,11 +61,14 @@ function Pantry() {
     {
         const collectionRef = collection(db, userCollectionID)
         // make sure the expiration date isn't null (ie dried pasta doesn't really expire)
-        if (!ingredient){
-            ingredient['expiration'] = new Date(ingredient.expiration)
+        
+        ingredient['expiration'] = new Date(ingredient.expiration)
+        if (!ingredient.expiration){
+            ingredient['expiration'] = "";
         }
 
-        if(!(ingredient.expiration instanceof Date)){
+        // make sure that the date is valid. invalid dates will still be Date objects so instanceof checks fail
+        if(ingredient['expiration'] == "Invalid Date"){ 
             delete ingredient.expiration
         }
         await addDoc(collectionRef, ingredient)
