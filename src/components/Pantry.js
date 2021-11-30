@@ -38,14 +38,9 @@ function Pantry() {
         }
         const ingredient = {ingredient: text, expiration: date}
         addIngredient(ingredient)
-        // let newItems = items.slice().concat([{
-        //     name: text, 
-        //     expiration: date,
-        // }]);
-        // setItems(newItems);
         setText("");
-        console.log(items);
-        setDate("");
+        // console.log(items);
+        setDate("Expiration");
     }
 
     async function deleteItem(element)
@@ -64,6 +59,9 @@ function Pantry() {
     async function addIngredient(ingredient)
     {
       const collectionRef = collection(db, 'ingredients')
+      console.log(ingredient['expiration'])
+      ingredient['expiration'] = new Date(ingredient.expiration)
+      console.log(ingredient['expiration'])
       if(!(ingredient.expiration instanceof Date))
       {
         delete ingredient.expiration
@@ -106,10 +104,10 @@ function Pantry() {
             ></input>
             <input //TODO: ADD DATE VALIDATION
                 id="date-box"
-                placeholder="expiration date"
+                placeholder="Expiration"
                 type="date"
                 onChange = {(event) => setDate(event.target.value)}
-                //value={date}
+                // value={date}
             ></input>
 
             <button
