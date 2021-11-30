@@ -59,15 +59,16 @@ function Pantry() {
 
     async function addIngredient(ingredient)
     {
-      const collectionRef = collection(db, userCollectionID)
-      console.log(ingredient['expiration'])
-      ingredient['expiration'] = new Date(ingredient.expiration)
-      console.log(ingredient['expiration'])
-      if(!(ingredient.expiration instanceof Date))
-      {
-        delete ingredient.expiration
-      }
-      await addDoc(collectionRef, ingredient)
+        const collectionRef = collection(db, userCollectionID)
+        // make sure the expiration date isn't null (ie dried pasta doesn't really expire)
+        if (!ingredient){
+            ingredient['expiration'] = new Date(ingredient.expiration)
+        }
+
+        if(!(ingredient.expiration instanceof Date)){
+            delete ingredient.expiration
+        }
+        await addDoc(collectionRef, ingredient)
     }
 
     return (
