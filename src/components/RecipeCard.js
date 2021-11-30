@@ -18,6 +18,9 @@ const RecipeCard = ({recipe}) => {
     }
     useEffect(getRecipeLink,[])
 
+    const includes_ingredient = (recepie, ingredient) => (recepie.name.includes(ingredient) || recepie.nameClean.includes(ingredient) || recepie.original.includes(ingredient) || recepie.originalString.includes(ingredient) || recepie.originalName.includes(ingredient))
+
+    
     return (
         <div>
             <h3>{recipe.title}</h3>

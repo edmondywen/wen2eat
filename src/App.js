@@ -8,7 +8,7 @@ import RecipeCard from "./components/RecipeCard"
 
 
 function App() {
-  const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d']
+  const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884']
   const RECIPES_PER_PAGE = 10
   const [ingredients, setIngredients] = useState([])
   const [next, setNext] = useState(
@@ -113,12 +113,13 @@ function App() {
     //TODO
     // escape spaces and special chars in ingredient names
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
-    ingredientString = '+' + ingredientString
+    ingredientString = '+' + encodeURIComponent(ingredientString)
+    console.log(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&diet=vegetarian&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`)
     fetch(
       /* TODO
       make the spoonacular quiery depend on quantity and expiration*/
       // `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&number=5&ingredients=${ingredientString}`
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
+        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&diet=vegetarian&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
         )
       .then((response) => response.json())
       .then((data) => {
@@ -184,6 +185,8 @@ function App() {
     }
   }
 
+  const includes_ingredient = (recepie, ingredient) => (recepie.name.includes(ingredient) || recepie.nameClean.includes(ingredient) || recepie.original.includes(ingredient) || recepie.originalString.includes(ingredient) || recepie.originalName.includes(ingredient))
+
   function sortRecipes(unorderedRecipes)
   {
     const ingredient_weights = getIngredientScore()
@@ -192,7 +195,7 @@ function App() {
       const recepie_incoding = {position: index, score: 0}
       ingredients.forEach((in_pantry) => {
         recipe.extendedIngredients.forEach((in_recepie) => {
-          if(in_recepie.name.includes(in_pantry.ingredient))
+          if(includes_ingredient(in_recepie, in_pantry.ingredient))
           {
             recepie_incoding["score"] += ingredient_weights[in_pantry.ingredient]
           }
