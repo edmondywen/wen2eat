@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-export const login_form = ({username, password, handleSubmit, setUsername, setPassword, onSubmitButton}) => {
+export const login_form = ({username, password, handleSubmit, setUsername, setPassword}) => {
     return (
         <div>
           <p>Hello, {username}!</p>
           <p>The password you entered is {password}</p>
           
-          <form onSubmit={(event) => {onSubmitButton(); handleSubmit(event)}}>
+          <form onSubmit={(event) => {handleSubmit(event)}}>
               <label>Username:</label><br/>
               {/* onChange updates username every time the user enters/deletes a character  */}
               <input type="text" name="username" onChange={event => setUsername(event.target.value)}/><br/> 

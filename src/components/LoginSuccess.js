@@ -1,8 +1,11 @@
 import React from 'react'; 
 
-export const LoginSuccess= ({}) => {
+export const LoginSuccess= ({username}) => {
     return (
-        <p>Login successful</p>
+        <div className = "welcomeMessage">
+            <p>Login successful</p>
+            <p>Welcome, {username}!</p>
+        </div>
     )
     //TODO: display the user's pantry 
     //General idea: replace the body of this with the pantry/recommendations from the other branches, 
