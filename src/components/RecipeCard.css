@@ -8,9 +8,9 @@
     border-style: solid;
     border-color: black;   
     border-radius: 10px;
-    margin-top: calc(10px + 1vh);
-    margin-bottom: calc(10px + 1vh);
-    padding-top: calc(5px + 0.5vh);
+    margin-top: calc(20px + 1vh);
+    margin-bottom: calc(20px + 1vh);
+    padding-top: calc(10px + 0.5vh);
     padding-bottom: calc(10px + 0.5vh);
     /* background color */
     background-color: white;
