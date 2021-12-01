@@ -11,7 +11,7 @@ import Pantry from './Pantry.js';
 
 function App() {
   const [ingredients, setIngredients] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
-  const [DietList, setDietList] = useState([]);
+  const [DietList, setDietList] = useState("");
   const [IntolerancesList, setIntolerancesList] = useState([]);
 
   const setupFirestoreListener = () => {

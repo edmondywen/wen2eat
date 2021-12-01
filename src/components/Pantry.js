@@ -27,19 +27,21 @@ function Pantry({items, DietList, setDietList, IntolerancesList, setIntolerances
     
 
     function DietSet(x, isAdded) {
-        console.log("New iteration");
-        console.log(isAdded);
-        console.log(DietList);
-        if (isAdded) {
-            console.log("you are here");
-            const newDietList = DietList.filter(DietItem => x !== DietItem);
-            setDietList(newDietList);
-        }
-        else {
-            let copyDietList = DietList.slice();
-            copyDietList.push(x);
-            setDietList(copyDietList);
-        }
+        // console.log("New iteration");
+        // console.log(isAdded);
+        // console.log(DietList);
+        // if (isAdded) {
+        //     console.log("you are here");
+        //     const newDietList = DietList.filter(DietItem => x !== DietItem);
+        //     setDietList(newDietList);
+        // }
+        // else {
+        //     let copyDietList = DietList.slice();
+        //     copyDietList.push(x);
+        //     setDietList(copyDietList);
+        // }
+        // console.log(DietList);
+        setDietList(x);
         console.log(DietList);
     }
 
