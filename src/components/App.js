@@ -7,6 +7,7 @@ import {userCollectionID, logout} from "./Login.js"
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
 import { useEffect, useState } from "react"
+import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
 import Pantry from './Pantry.js';
 
 function App() {
@@ -22,10 +23,22 @@ function App() {
         ))
     ))
   }
-
   useEffect(setupFirestoreListener, []);
+
+  const loginout = () => 
+  {
+    if(userCollectionID === "ingredients")
+    {
+      return (<button id = "Linkbutton">
+      Login
+      </button>)
+    }else
+    {
+      return 
+    }
+  }
   
-  return (
+  return (userCollectionID==="ingredients") ? (<Navigate to= "/Login" ></Navigate>) : (
     <div className="App">
       <div className="App-header">
         <div className="Header-text">
@@ -35,8 +48,8 @@ function App() {
         <div className="Login-button-area">
           <div className="Links">
               <Link to="/login">
-                  <button id = "Linkbutton">
-                      Login
+                  <button id="Linkbutton">
+                    Logout
                   </button>
               </Link>
                 {/* | {" "} */}
@@ -46,6 +59,7 @@ function App() {
       </div>
       <div className="App-body">
         {/* <Outlet></Outlet> */}
+        
         <Pantry items={ingredients} DietList={DietList} setDietList={setDietList} IntolerancesList={IntolerancesList} setIntolerancesList={setIntolerancesList}/>
         <Recs ingredients={ingredients} dietaryRestrictions={DietList} intolerances={IntolerancesList}></Recs>
       </div>
