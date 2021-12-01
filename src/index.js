@@ -19,8 +19,8 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="" element={<Pantry />}/>
-          <Route path="pantry" element={<Pantry />}/>
+          {/* <Route path="" element={<Pantry />}/> */}
+          {/* <Route path="pantry" element={<Pantry />}/> */}
           {/* <Route path="dr" element={<DietaryRestrictions/>}/> */}
         </Route>
         <Route path="login" element={<Login/>}/>

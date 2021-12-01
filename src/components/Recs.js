@@ -24,10 +24,7 @@ function Recs({ingredients, data}) {
     ingredientString = '+' + encodeURIComponent(ingredientString)
     console.log(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&diet=vegetarian&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`)
     fetch(
-      /* TODO
-      make the spoonacular quiery depend on quantity and expiration*/
-      // `https://api.spoonacular.com/recipes/findByIngredients?apiKey=f87bfe3073584580bd8a6fb6eafa20f8&number=5&ingredients=${ingredientString}`
-        `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&diet=vegetarian&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
+         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&diet=vegetarian&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
         )
       .then((response) => response.json())
       .then((data) => {
