@@ -18,7 +18,7 @@ When a **user modifies their list of on-hand ingredients, that information is up
 ### Unique Features
 1. Users can log in to keep track of their pantry.
 2. Users can input dietary restrictions to filter recipe recommendations.
-3. Users can select favorite recipes that they can view and edit at any time.
+3. Users can select favorite recipes that they can view at any time.
 
 ## Setup
 
