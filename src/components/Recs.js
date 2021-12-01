@@ -41,7 +41,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         console.log(data)
         if(data.status === 'failure')
         {
-            if(key = APIKEY.length-1)
+            if(key === APIKEY.length-1)
             {
             console.log("error")
             }else
@@ -53,7 +53,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         setRecipe(data.results)
       })
       .catch(() => {
-        if(key = APIKEY.length-1)
+        if(key === APIKEY.length-1)
         {
           console.log("error")
         }else
@@ -77,24 +77,31 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
 
    }
 
-   async function showFavorites()
+   async function getAllFavorites()
    {
+     setRecipe([])
     const querySnapshot = await getDocs(collection(db,collectionName)); 
     let len = querySnapshot.size
     let favorites = []
     for (let i = 0; i < len; i++)
     {
-        //console.log(querySnapshot.docs[i].data().id)
         favorites.push(querySnapshot.docs[i].data().id)
+        
     }
     console.log(favorites)
-    return favorites; 
+    for(let i = 0; i < len; i++)
+    {
+      console.log(favorites[i])
+      getRecipeByID(0, favorites[i]);
+    
+    }
+    //return favorites; 
 
    }
     function getAllRecipes() {
         // Receives all props from Recs
         return (recipe && recipe.map( (rec) => {   
-          console.log(rec);
+          //console.log(rec);
           let summary = rec.summary.replace( /(<([^>]+)>)/ig, '');
           let index = summary.indexOf("All things considered, we decided this recipe deserves a spoonacular score");
           summary = summary.slice(0, index); //remove a weird spoonacular score section in the description 
@@ -110,12 +117,55 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         }));
     }
 
+
+    function getRecipeByID(key, id) //used for finding favorited recipes
+    {
+      console.log(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${APIKEY[key]}`)
+        fetch(
+          `https://api.spoonacular.com/recipes/${id}/information?apiKey=${APIKEY[key]}`
+        )
+      .then((response) => { console.log("first then"); console.log(response); return response.json();})
+      .then((data) => {
+        console.log("second then")
+        console.log(data)
+        console.log(data.status)
+        console.log(data.status === 'failure')
+        if(data.status === 'failure')
+        {
+            if(key === APIKEY.length-1)
+            {
+            console.log("error, status is failure")
+            }else
+            {
+            getRecipeByID(key+1, id)
+            }
+            return
+        }
+        //Make a copy of the current recipes state, then append the new recipe to it, then set the recipe state so that it contains the new recipe
+        console.log("starting copy")
+        let copy = recipe.slice(); 
+        copy.push(data)
+        console.log(copy)
+        setRecipe(copy)
+
+      })
+      .catch(() => {
+        if(key === APIKEY.length-1)
+        {
+          console.log("error, reached end of keys")
+        }else
+        {
+          getRecipeByID(key+1, id)
+        }
+      });
+    }
+
     return(
         <div className="Recs">
             <h1>Recommendations</h1>
             {/* TODO: wrap this in a div so that I can arrange the layout of the buttons or I could add margin. make buttons the same size */}
-            <button className = "recs-button" onClick={() => getRecipe(2)}>Get Recepies! 🥧</button>
-            <button className = "recs-button" onClick={() => showFavorites()}> Show Favorites ★</button>
+            <button className = "recs-button" onClick={() => getRecipe(0)}>Get Recepies! 🥧</button>
+            <button className = "recs-button" onClick={() => getAllFavorites()}> Show Favorites ★</button>
             {getAllRecipes()}
         </div>   
     );
