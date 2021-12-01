@@ -11,6 +11,7 @@ import "./Recs.css"
 function Recs({ingredients, dietaryRestrictions, intolerances}) {
     const [recipe, setRecipe] = useState([])
     const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884']
+    const [page, setPage] = useState(0)
     /*
         Need function to somehow get recommendations from database
         Recommendations will be an array with each element having the structure
@@ -19,6 +20,8 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     */
    const getRecipe = (key) => 
    {
+    console.log("key")
+    console.log(key)
     let ingredientString = ""
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
     ingredientString = encodeURIComponent(ingredientString)
@@ -28,16 +31,16 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     // console.log(dietString)
     let intoleranceString = ""
     intolerances.forEach((intolerance) => intoleranceString = intoleranceString + "," + intolerance)
-
+    console.log(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&intolerances=${intoleranceString}&offset=${10*page}&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`)
     fetch(
-         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&intolerances=${intoleranceString}&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
+         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&intolerances=${intoleranceString}&offset=${10*page}&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
         )
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
         if(data.status === 'failure')
         {
-            if(key = APIKEY.length-1)
+            if(key === APIKEY.length-1)
             {
             console.log("error")
             }else
@@ -49,7 +52,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         setRecipe(data.results)
       })
       .catch(() => {
-        if(key = APIKEY.length-1)
+        if(key === APIKEY.length-1)
         {
           console.log("error")
         }else
@@ -80,9 +83,12 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         <div className="Recs">
             <h1>Recommendations</h1>
             {/* TODO: wrap this in a div so that I can arrange the layout of the buttons or I could add margin. make buttons the same size */}
-            <button className = "recs-button" onClick={() => getRecipe(2)}>Get Recepies! 🥧</button>
+            <button className = "recs-button" onClick={() => getRecipe(0)}>Get Recepies! 🥧</button>
             <button className = "recs-button"> Show Favorites ★</button>
             {getAllRecipes()}
+            {(page !== 0 ) ? <button className = "recs-button" onClick={()=>{setPage(page-1);getRecipe(0)}}> Back </button> : null}
+            {(recipe.length === 10 && page < 90) ? <button className = "recs-button" onClick={()=>{setPage(page+1);getRecipe(0)}}> Next </button> : null}
+            
         </div>   
     );
 }
