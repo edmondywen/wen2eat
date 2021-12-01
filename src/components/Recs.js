@@ -8,12 +8,22 @@ import { useEffect, useState } from "react";
 import RecipeCard from './RecipeCard.js'
 import "./Recs.css"
 import {userCollectionID} from "./Login.js"
+<<<<<<< HEAD
 import { collection, onSnapshot, addDoc, getDocs } from "@firebase/firestore"
 import db from '../firebase'
 
 function Recs({ingredients, dietaryRestrictions, intolerances}) {
     let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
     const [recipe, setRecipe] = useState([])
+=======
+import { collection, addDoc, getDocs, query, where, deleteDoc } from "@firebase/firestore"
+import db from '../firebase'
+
+function Recs({ingredients, dietaryRestrictions, intolerances}) {
+  let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
+    const [recipe, setRecipe] = useState([]);
+    const [favoriteIDs, setFavoriteIDs] = useState([]);
+>>>>>>> 5e1add4a547716b6f3195386382e230afa243bbf
     const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884', 'dd90b98918d5434ebe78168613318483', 'c23ad133748d40dfb83f32f6422023cc', '7312fa0da4e846c1a3002cd318730097']
     const [currentKey, setCurrentKey] = useState(0)
     const [page, setPage] = useState(0)
@@ -32,8 +42,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         {id:, recipe that is [recipe data structure]}
         where [recipe data structure] = {title:, description:, image:, faved:,}
     */
-   const getRecipe = (key) => 
-   {
+  const getRecipe = (key) => {
     // console.log("key")
     // console.log(key)
     let ingredientString = ""
@@ -76,7 +85,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
           getRecipe(key+1)
         }
       });
-   }
+  }
   
    async function pushFavorite(recipe_id)
    {
@@ -92,7 +101,14 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
 
    async function deleteFavorite(recipe_id)
    {
+    const q = query(collection(db, collectionName), where("id", "==", recipe_id));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+     // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
 
+      deleteDoc(doc.ref)
+      });
    }
 
    async function toggleFav(id)
