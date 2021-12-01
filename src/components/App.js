@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom"
 import './App.css';
 import './Ingredient.css'
 import './Links.css'
-import {userCollectionID} from "./Login.js"
+import {userCollectionID, logout} from "./Login.js"
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
 import { useEffect, useState } from "react"
@@ -39,6 +39,9 @@ function App() {
                       Login
                   </button>
               </Link>
+
+
+
                 {/* | {" "} */}
               {/* <Link to="/dr">Dietary Restrictions</Link> */}
           </div>            
