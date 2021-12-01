@@ -105,7 +105,7 @@ function Pantry({items, DietList, setDietList, IntolerancesList, setIntolerances
         await addDoc(collectionRef, ingredient)
     }
 
-    return (onDR) ? <DietaryRestrictions onFlip={onFlip} DietSet={DietSet} IntolerancesSet={IntolerancesSet}/> : (
+    return (onDR) ? <DietaryRestrictions onFlip={onFlip} DietSet={DietSet} IntolerancesSet={IntolerancesSet} DietList={DietList} IntolerancesList={IntolerancesList}/> : (
         <div className="Pantry">
             <h1>Pantry</h1>
             <div className="Links">

@@ -4,8 +4,7 @@ import './Links.css'
 import './DRList.css'
 import DRItem from "./DRItem";
 
-function DietaryRestrictions({onFlip, DietSet, IntolerancesSet}){
-
+function DietaryRestrictions({onFlip, DietSet, IntolerancesSet, DietList, IntolerancesList}){
 
     let diet_options = ['gluten free', 'ketogenic', 'vegetarian', 'ovo-vegetarian', 'lacto-vegetarian', 'vegan',
                                 'pescetarian', 'paleo', 'primal', 'low FODMAP', 'whole30'];
@@ -25,7 +24,7 @@ function DietaryRestrictions({onFlip, DietSet, IntolerancesSet}){
                 <div className="Checkboxes">
                     {diet_options.map((option) => {
                         return(
-                            <DRItem id={option} name={option} value ={option} changeFunction={DietSet} />
+                            <DRItem id={option} name={option} value ={option} changeFunction={DietSet} isChecked={DietList.includes(option)} />
                         )
                     })}
                 </div>
@@ -38,7 +37,7 @@ function DietaryRestrictions({onFlip, DietSet, IntolerancesSet}){
                 <div className="Checkboxes">
                     {intolerance_options.map((option) => {
                         return(
-                            <DRItem id={option} name={option} value ={option} changeFunction={IntolerancesSet} />
+                            <DRItem id={option} name={option} value ={option} changeFunction={IntolerancesSet} isChecked={IntolerancesList.includes(option)} />
                         )
                     })}
                 </div>
