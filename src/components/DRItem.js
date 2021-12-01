@@ -5,12 +5,8 @@ function DRItem(props) {
     const [isChecked, changeChecked] = useState(props.isChecked);
     return (
         <div>
-            <input type="checkbox" id={props.id} name={props.name} value={props.value} checked={isChecked} 
+            <input type="radio" id={props.id} name={props.name} value={props.value} checked={isChecked} 
                 onChange={ () => {
-                    // console.log(isChecked);
-                    // if (!isChecked) {
-                    //     props.changeFunction(props.id, isChecked);
-                    // }
                     props.changeFunction(props.id, isChecked);
                     changeChecked(!isChecked); 
                 } }

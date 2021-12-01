@@ -22,11 +22,13 @@ function DietaryRestrictions({onFlip, DietSet, IntolerancesSet, DietList, Intole
             <div className="Diet">
                 <h3>Diet</h3>
                 <div className="Checkboxes">
-                    {diet_options.map((option) => {
-                        return(
-                            <DRItem id={option} name={option} value ={option} changeFunction={DietSet} isChecked={DietList.includes(option)} />
-                        )
-                    })}
+                    <form>
+                        {diet_options.map((option) => {
+                            return(
+                                <DRItem id={option} name={option} value ={option} changeFunction={DietSet} isChecked={DietList === option} />
+                            )
+                        })}
+                    </form>
                 </div>
                 <p></p>
             </div>
