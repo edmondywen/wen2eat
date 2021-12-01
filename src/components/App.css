@@ -47,3 +47,11 @@ a{
 a:visited{
   text-decoration: none;
 }
+
+button {
+  background-color: transparent;
+  color: black;
+  border-color: transparent;
+  border-style: solid;
+  font-size: medium;
+}
