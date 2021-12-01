@@ -24,7 +24,7 @@ When a **user modifies their list of on-hand ingredients, that information is up
 
 1. Clone the repo `git clone https://github.com/edmondywen/wen2eat.git`
 2. Change directory `cd wen2eat`
-3. Install packages `npm install` `npm install react-router-dom@6` `npm install react-alert` `npm install firebase`
+3. Install packages `npm install`
 4. Start the development server `npm start`
 
 ## Using the app
