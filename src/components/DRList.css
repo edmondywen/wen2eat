@@ -81,17 +81,6 @@ ul {
     list-style-type: none;
 }
 
-<<<<<<< HEAD
-=======
-button {
-    background-color: transparent;
-    color: black;
-    border-color: transparent;
-    border-style: solid;
-    font-size: medium;
-}
-
->>>>>>> 96b536d9d8b4ad3e92f76bcf7643dccb7e8c16b1
 p {
     margin-left: calc(2px + 0.25vw);
     margin-top: calc(2px + 0.25vw);

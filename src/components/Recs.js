@@ -76,7 +76,7 @@ function Recs({ingredients, data}) {
     return(
         <div className="Recs">
             <h1>Recommendations</h1>
-            <button id = "Recepie-Button" onClick={() => getRecipe(1)}>Get Recepies! 🥧</button>
+            <button id = "Recepie-Button" onClick={() => getRecipe(2)}>Get Recepies! 🥧</button>
             {getAllRecipes()}
         </div>   
     );
