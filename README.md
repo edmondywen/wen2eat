@@ -28,13 +28,12 @@ When a **user modifies their list of on-hand ingredients, that information is up
 4. Start the development server `npm start`
 
 ## Using the app
-
+* Login on the login page the "Login" button directs you to with your wen2eat account to save your information
+* If you don't already have a wen2eat account, you can create a one after clicking "Create a new account" on the login page
 * Add ingredients and their associated expiration dates to your pantry with the submit box.
 * Toggle between your Pantry and Dietary Restrictions with the "Flip to Pantry/Dietary Restrictions" button.
 * If applicable, select a diet you want to adhere to and/or any food intolerances.
 * Click the "Get Recepies 🥧" button to generate recipes based on your Pantry and Dietary Restrictions.
 * Click the star on any recipe cards you want to favorite -- they will be displayed when you click "Show favorites ★".
-* Login on the login page the "Login" button directs you to with your wen2eat account to save your information
-* If you don't already have a wen2eat account, you can create a one after clicking "Create a new account" on the login page
 
 We hope you enjoy using our app to help you figure out what to make and wen2eat it!
