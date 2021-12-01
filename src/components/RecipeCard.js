@@ -26,10 +26,11 @@ function RecipeCard(props) {
                 <p className="Description"> {props.description} </p>
             </div>
             <div className="Recipe-Fav-Select">
+                <p>{console.log(props.favs.includes(props.id))}</p>
                 <input onClick = {() => props.toggleFav(props.id)}
                     class="star"
                     id={props.id}
-                    value={props.favs.includes(props.id)}
+                    checked={props.favs.includes(props.id)}
                     placeholder="favorite"
                     type = "checkbox"
                     // checked = {props.isChecked} 

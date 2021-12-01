@@ -8,23 +8,14 @@ import { useEffect, useState } from "react";
 import RecipeCard from './RecipeCard.js'
 import "./Recs.css"
 import {userCollectionID} from "./Login.js"
-<<<<<<< HEAD
-import { collection, onSnapshot, addDoc, getDocs } from "@firebase/firestore"
-import db from '../firebase'
-
-function Recs({ingredients, dietaryRestrictions, intolerances}) {
-    let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
-    const [recipe, setRecipe] = useState([])
-=======
-import { collection, addDoc, getDocs, query, where, deleteDoc } from "@firebase/firestore"
+import { collection, addDoc, getDocs, query, where, deleteDoc, onSnapshot } from "@firebase/firestore"
 import db from '../firebase'
 
 function Recs({ingredients, dietaryRestrictions, intolerances}) {
   let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
     const [recipe, setRecipe] = useState([]);
     const [favoriteIDs, setFavoriteIDs] = useState([]);
->>>>>>> 5e1add4a547716b6f3195386382e230afa243bbf
-    const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884', 'dd90b98918d5434ebe78168613318483', 'c23ad133748d40dfb83f32f6422023cc', '7312fa0da4e846c1a3002cd318730097']
+    const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884', 'dd90b98918d5434ebe78168613318483', 'c23ad133748d40dfb83f32f6422023cc', '7312fa0da4e846c1a3002cd318730097', 'cd728c48cad14e159d69c2ae2d9bfc87']
     const [currentKey, setCurrentKey] = useState(0)
     const [page, setPage] = useState(0)
     const [favs, setFavs] = useState([])
@@ -104,11 +95,9 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     const q = query(collection(db, collectionName), where("id", "==", recipe_id));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-     // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
-
       deleteDoc(doc.ref)
-      });
+    });
    }
 
    async function toggleFav(id)
@@ -129,6 +118,8 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
           let summary = rec.summary.replace( /(<([^>]+)>)/ig, '');
           let index = summary.indexOf("All things considered, we decided this recipe deserves a spoonacular score");
           summary = summary.slice(0, index); //remove a weird spoonacular score section in the description 
+          console.log("favs")
+          console.log(favs)
           return (<RecipeCard 
             toggleFav={toggleFav}
             favs={favs}
@@ -145,12 +136,11 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
 
     function getRecipeByID(key) //used for finding favorited recipes
     {
-      console.log("favs")
-      console.log(favs)
-
-      console.log("key")
-      console.log(key)
-      console.log(currentKey)
+      if(favs.length ===0)
+      {
+        setRecipe([])
+        return
+      }
       let idsString = ""
       favs.forEach((id) => (idsString = idsString + id + ','))
       console.log(`https://api.spoonacular.com/recipes/informationBulk?apiKey=${APIKEY[key]}&ids=${idsString}`)
