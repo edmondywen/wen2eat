@@ -4,19 +4,28 @@ recs - recommendations state variable
 updateRecs - to update state variable
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecipeCard from './RecipeCard.js'
 import "./Recs.css"
 import {userCollectionID} from "./Login.js"
-import { collection, addDoc, getDocs } from "@firebase/firestore"
+import { collection, onSnapshot, addDoc, getDocs } from "@firebase/firestore"
 import db from '../firebase'
 
 function Recs({ingredients, dietaryRestrictions, intolerances}) {
-  let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
+    let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
     const [recipe, setRecipe] = useState([])
     const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884', 'dd90b98918d5434ebe78168613318483', 'c23ad133748d40dfb83f32f6422023cc', '7312fa0da4e846c1a3002cd318730097']
     const [currentKey, setCurrentKey] = useState(0)
     const [page, setPage] = useState(0)
+    const [favs, setFavs] = useState([])
+
+    const setupFirestoreListener = () => {
+      console.log(db);
+      return onSnapshot(collection(db, collectionName), (snapshot) => 
+        setFavs(snapshot.docs.map((doc) => (doc.data().id))))
+    }
+    useEffect(setupFirestoreListener, []);
+    
     /*
         Need function to somehow get recommendations from database
         Recommendations will be an array with each element having the structure
@@ -71,35 +80,31 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
   
    async function pushFavorite(recipe_id)
    {
-     //Push the favorite to the collection 
-    //  console.log("Name of favorites collection is " + collectionName)
-     const collectionRef = collection(db, collectionName); 
-     await addDoc(collectionRef, {
-      id: recipe_id
-      })
+     if(favs.includes(recipe_id))
+     {
+       return
+     }
+    const collectionRef = collection(db, collectionName); 
+    await addDoc(collectionRef, {
+    id: recipe_id
+    })
    }
+
    async function deleteFavorite(recipe_id)
    {
 
    }
 
-   async function getAllFavorites()
+   async function toggleFav(id)
    {
-    setRecipe([])
-    console.log("cleared Recipies")
-    console.log(recipe)
-    const querySnapshot = await getDocs(collection(db,collectionName)); 
-    let len = querySnapshot.size
-    let favorites = []
-    for (let i = 0; i < len; i++)
-    {
-      favorites.push(querySnapshot.docs[i].data().id)
-    }
-    console.log("favs are")
-    console.log(favorites)
-    getRecipeByID(currentKey, favorites)
+      if(favs.includes(id))
+      {
+        await deleteFavorite(id)
+      }else
+      {
+        await pushFavorite(id)
+      }
    }
-
 
     function getAllRecipes() {
         // Receives all props from Recs
@@ -109,11 +114,12 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
           let index = summary.indexOf("All things considered, we decided this recipe deserves a spoonacular score");
           summary = summary.slice(0, index); //remove a weird spoonacular score section in the description 
           return (<RecipeCard 
+            toggleFav={toggleFav}
+            favs={favs}
             title={rec.title}
             description={summary} 
             image={rec.image}
             link={rec.sourceUrl}
-            faved="your mom"
             id={rec.id}
             addFavorite={pushFavorite}
         />)
@@ -121,13 +127,16 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     }
 
 
-    function getRecipeByID(key, ids) //used for finding favorited recipes
+    function getRecipeByID(key) //used for finding favorited recipes
     {
+      console.log("favs")
+      console.log(favs)
+
       console.log("key")
       console.log(key)
       console.log(currentKey)
       let idsString = ""
-      ids.forEach((id) => (idsString = idsString + id + ','))
+      favs.forEach((id) => (idsString = idsString + id + ','))
       console.log(`https://api.spoonacular.com/recipes/informationBulk?apiKey=${APIKEY[key]}&ids=${idsString}`)
         fetch(
            `https://api.spoonacular.com/recipes/informationBulk?apiKey=${APIKEY[key]}&ids=${idsString}`
@@ -144,7 +153,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
             }else
             {
               setCurrentKey(key+1)
-              getRecipeByID(key+1, ids)
+              getRecipeByID(key+1)
             }
             return
         }
@@ -158,7 +167,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
           console.log("error, reached end of keys")
         }else
         {
-          getRecipeByID(key+1, ids)
+          getRecipeByID(key+1)
         }
       });
     }
@@ -169,7 +178,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
             {/* TODO: wrap this in a div so that I can arrange the layout of the buttons or I could add margin. make buttons the same size */}
             <button className = "recs-button" onClick={() => getRecipe(currentKey)}>Get Recepies! 🥧</button>
 
-            <button className = "recs-button" onClick={() => getAllFavorites()}> Show Favorites ★</button>
+            <button className = "recs-button" onClick={() => getRecipeByID(currentKey)}> Show Favorites ★</button>
             {getAllRecipes()}
             {(page !== 0 ) ? <button className = "recs-button" onClick={()=>{setPage(page-1);getRecipe(currentKey)}}> Back </button> : null}
             {(recipe.length === 10 && page < 90) ? <button className = "recs-button" onClick={()=>{setPage(page+1);getRecipe(currentKey)}}> Next </button> : null}
