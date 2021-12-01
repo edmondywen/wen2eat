@@ -6,6 +6,7 @@ import Ingredient from './Ingredient.js'
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
 import {userCollectionID} from "./Login.js"
+import DietaryRestrictions from "./DietaryRestrictions";
 
 /*
 PANTRY 
@@ -21,6 +22,7 @@ function Pantry() {
     const [items, setItems] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
     const [text, setText] = useState(""); //submit box text 
     const [date, setDate] = useState(""); //expiration date. 
+    const [onDR, setOnDR] = useState(false);
 
     const setupFirestoreListener = () => {
         console.log(db);
@@ -32,6 +34,10 @@ function Pantry() {
     }
     useEffect(setupFirestoreListener, []);
 
+    const onFlip = () => {
+        setOnDR(!onDR)
+    }
+
     const submit = () => {
         if (text === ""){
             alert("add an ingredient");
@@ -41,7 +47,7 @@ function Pantry() {
         addIngredient(ingredient)
         setText("");
         // console.log(items);
-        setDate("Expiration");
+        // setDate("Expiration");
     }
 
     async function deleteItem(element)
@@ -74,17 +80,17 @@ function Pantry() {
         await addDoc(collectionRef, ingredient)
     }
 
-    return (
+    return (onDR) ? <DietaryRestrictions onFlip={onFlip}/> : (
         <div className="Pantry">
             <h1>Pantry</h1>
             <div className="Links">
                 {/* <Link to="/pantry">Pantry</Link> | {" "} */}
-                <Link to="/dr">
-                    <button id = "Linkbutton">
-                        {/* <img src = "../Images/flip-arrow.png"/> */}
-                        Flip to Dietary Restrictions
-                    </button>
-                </Link>
+                {/* <Link to="/dr"> */}
+                <button onClick = {onFlip} id="Linkbutton">
+                    {/* <img src = "../Images/flip-arrow.png"/> */}
+                    Flip to Dietary Restrictions
+                </button>
+                {/* </Link> */}
             </div>
 
             {items.map((element, index) => {

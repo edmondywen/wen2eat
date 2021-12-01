@@ -1,14 +1,15 @@
 import {useState} from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './Links.css'
 import './DRList.css'
 import DRItem from "./DRItem";
 
-function DietaryRestrictions(){
+function DietaryRestrictions({onFlip}){
     const [items, setItems] = useState([]);
     const [text, setText] = useState(""); // submit box
     const [DietList, setDietList] = useState([]);
     const [IntolerancesList, setIntolerancesList] = useState([]);
+
     function DietSet(x, isAdded) {
         console.log("New iteration");
         console.log(isAdded);
@@ -62,11 +63,9 @@ function DietaryRestrictions(){
         <div className="DRList">
             <h1>Dietary Restrictions</h1>
             <div className="Links">
-                <Link to="/pantry">
-                    <button id = "Linkbutton">
-                        Flip to Pantry
-                    </button>
-                </Link>
+                <button onClick={onFlip} id = "Linkbutton">
+                    Flip to Pantry
+                </button>
                  {/* | {" "} */}
                 {/* <Link to="/dr">Dietary Restrictions</Link> */}
             </div>
