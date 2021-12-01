@@ -15,14 +15,18 @@
     background-color: white;
 
     height: 100vh;
+
+    border-radius: 10px;
+    border-style: solid;
 }
 
 .Pantry-Item{
     /* display */
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    /*align-content: center;*/
 
     /* text styling */
     font-weight: bold;
@@ -32,9 +36,8 @@
     border-color: black;
     border-width: thin;
     border-radius: 10px;
-    margin-top: calc(1px + 1vh);
-    margin-bottom: calc(1px + 1vh);
     background-color: #F2D4B7;
+    margin-bottom: calc(0.5vw);
 }
 
 button {
@@ -64,6 +67,7 @@ button {
 
 #submit-box{
     max-width: 25%;
+    margin-bottom: calc(0.3vw);
 }
 
 /* tags */

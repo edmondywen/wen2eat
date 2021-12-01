@@ -17,7 +17,6 @@ export const CreateAccountForm = ({username, password, setUsername, setPassword,
 
           </form>
         </div>
-
     )
 }
 

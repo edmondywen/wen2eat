@@ -65,12 +65,14 @@ function Login() {
       }
   }
 
-  return (creatingAccount) ? <CreateAccount setUsnm={setUsername} setPswd={setPassword} setCreatingAccount={setCreatingAccount}/> : 
+  return (creatingAccount) ? < CreateAccount setUsnm={setUsername} setPswd={setPassword} setCreatingAccount={setCreatingAccount}/> : 
   (
-    <div className="Login">
-      <h1>wen2eat</h1>
-      <LoginForm username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} toCreate={() => setCreatingAccount(true)}></LoginForm>
-      {doAuthenticate()}
+    <div className = "LoginContainer">
+      <div className="Login">
+        <img src = "https://i.imgur.com/on0rQlH.png" alt="wen2eat logo"></img>
+        <LoginForm username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} toCreate={() => setCreatingAccount(true)}></LoginForm>
+        {doAuthenticate()}
+      </div>
     </div>
   )
 }

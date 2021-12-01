@@ -22,10 +22,19 @@ function DietaryRestrictions({onFlip, DietSet, IntolerancesSet, DietList, Intole
             <div className="Diet">
                 <h3>Diet</h3>
                 <div className="Checkboxes">
+                    {/* <input type="radio" id={props.id} name={props.name} value={props.value} checked={isChecked} 
+                    onChange={ () => {
+                        props.changeFunction(props.id, isChecked);
+                        changeChecked(!isChecked); 
+                    } }/> */}
                     <form>
                         {diet_options.map((option) => {
                             return(
-                                <DRItem id={option} name={option} value ={option} changeFunction={DietSet} isChecked={DietList === option} />
+                                <div>
+                                    <input type="radio" id={option} name="diet" value ={option} onChange={() => DietSet(option)} isChecked={DietList === option}/>
+                                    <label for={option}>{option}</label>
+                                </div>
+
                             )
                         })}
                     </form>
