@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom"
 
-export const CreateAccountForm = ({username, password, setUsername, setPassword, handleSubmit}) => {
+export const CreateAccountForm = ({username, password, setUsername, setPassword, handleSubmit, userMessage}) => {
     return (
         <div>
             <h1> wen2eat </h1>
@@ -18,7 +18,9 @@ export const CreateAccountForm = ({username, password, setUsername, setPassword,
               <input type="text" name="username" onChange={event => setUsername(event.target.value)}/><br/> 
               <label>Password:</label> <br/> 
               <input type="password" name="password" onChange={event => setPassword(event.target.value)}/><br/> 
+              {userMessage()}
               <input type="submit" value="Submit"/> 
+
           </form>
         </div>
 

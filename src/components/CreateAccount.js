@@ -6,6 +6,19 @@ import { collection, addDoc, getDocs } from "@firebase/firestore"
 import db from '../firebase'
 import CreateAccountForm from "./CreateAccountForm.js"
 
+
+
+
+
+
+
+
+function CreateAccount()
+{
+    const[username, setUsername] = useState(""); 
+    const[password, setPassword] = useState(""); 
+    const [invalidUser, setInvalidUser] = useState(false)
+
 function handleSubmit(event)
 {
     event.preventDefault(); 
@@ -30,42 +43,43 @@ async function usernameIsAvailable(username)
         }
     }
     return true
-}
-
-async function addAccountToDatabase(user, pass)
-{
-    const collectionRef = collection(db, "users")
-    await addDoc(collectionRef, {
-        username: user, 
-        password: pass
-    })
-}
-
-async function attemptToAddAccount(user, pass)
-{
-    if(await usernameIsAvailable(user))
-    {
-        alert("That username is available. You can go back to the homepage now and log in.")
-        addAccountToDatabase(user, pass)
-    }
-    else
-    {
-        alert("That username is not available. Please pick another one.")
     }
 
-    //Note: Don't need to create a new collection for the user because Firebase automatically does that for us when we attempt to add a doc to the new collection
-}
+    async function addAccountToDatabase(user, pass)
+    {
+        const collectionRef = collection(db, "users")
+        await addDoc(collectionRef, {
+            username: user, 
+            password: pass
+        })
+    }
+    async function attemptToAddAccount(user, pass)
+    {
+        if(await usernameIsAvailable(user))
+        {
+            alert("That username is available. You can go back to the homepage now and log in.")
+            addAccountToDatabase(user, pass)
+        }
+        else
+        {
+            setInvalidUser(true);
+        }
+        //Note: Don't need to create a new collection for the user because Firebase automatically does that for us when we attempt to add a doc to the new collection
+    }
 
-function CreateAccount()
-{
-    const[username, setUsername] = useState(""); 
-    const[password, setPassword] = useState(""); 
+    const message = () =>
+    {
+        if(invalidUser)
+        {
+            return (<p>That username is not available you loser</p>)
+        }
+        return null
+    }
 
     useEffect( () => {console.log(username)}); 
 
     return(
-        <CreateAccountForm  username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} handleSubmit={handleSubmit} />
-
+        <CreateAccountForm  username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} handleSubmit={handleSubmit} userMessage={message}/>
 
     )
 }
