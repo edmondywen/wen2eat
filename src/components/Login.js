@@ -1,76 +1,24 @@
-import { Link, Outlet } from "react-router-dom"
-//Spoonacular API Key: f87bfe3073584580bd8a6fb6eafa20f8
-
 import LoginForm from "./LoginForm"
-import LoginSuccess from "./LoginSuccess"
-import LoginFail from "./LoginFail"
 import React, { useEffect, useState } from "react"
 import './Login.css'
 import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
 import db from '../firebase'
 import {collection, onSnapshot} from "@firebase/firestore"
+import CreateAccount from "./CreateAccount"
 
 
 let userCollectionID = "ingredients"
 
-function renderLoginResult(username, password, submittedForm, users, resetUsername, resetPassword, resetSubmit)
-{
-  console.log("rendering LoginResult"); 
-
-  return (<LoginResult username = {username} password = {password} submittedForm = {submittedForm} users = {users} resetUsername = {() => resetUsername} resetPassword = {() => resetPassword} resetSubmit = {() => resetSubmit}></LoginResult>); 
-}
-
-
-function LoginResult(props)
-{
-  if(!props.submittedForm) 
-    return null; //render nothing because we're still on the login form page 
-
-  //Try to find a match for users 
-  let len = props.users.length
-  let i = 0; 
-  for( ; i < len; i++)
-  {
-    if(props.username == props.users[i].username && props.password == props.users[i].password)
-    {
-      props.resetSubmit(); 
-      userCollectionID = props.username + "_collection"
-      return <Navigate to= "/LoginSuccess" ></Navigate>; 
-    }
-    else
-    {
-      console.log("Username " + props.username  + ", password: " + props.password
-      + " does not match " + props.users[i].username + " and " + props.users[i].password)
-    }
-  }
-  if(i == len)
-  {
-    console.log("Wrong username/password")
-    props.resetUsername(); 
-    props.resetPassword(); 
-    props.resetSubmit(); 
-    return <Navigate to= "/LoginFail"></Navigate>; 
-  }
-
-
-}
-
-function handleSubmit(event)
-{
-  event.preventDefault(); 
-  console.log("submitted something"); 
-  console.log("USERNAME IS " + event.target.username.value + " , PASSWORD IS " + event.target.password.value);
-}
-
 
 function Login() {
-  const[username, setUsername] = useState("stranger"); 
-  const[password, setPassword] = useState(""); 
-  const[submittedForm, setSubmittedForm] = useState(false); 
+  const[username, setUsername] = useState("")
+  const[password, setPassword] = useState("")
+  const[submittedForm, setSubmittedForm] = useState(false)
   const[users, setUsers] = useState({
     username: "",
     password: ""
   })
+  const [creatingAccount, setCreatingAccount] = useState(false)
 
   const updateUsers = () => {
     return onSnapshot(collection(db, "users"), (snapshot) => 
@@ -84,21 +32,49 @@ function Login() {
   const resetPassword = () => {setPassword("")}
   const resetSubmit = () => {setSubmittedForm(false)}
 
-  return (
-  
+  const doAuthenticate = () =>
+  {
+    if(!submittedForm) 
+      return null;
+
+    //Try to find a match for users 
+    let len = users.length
+    console.log("len is : " + len)
+    let i = 0; 
+    for( ; i < len; i++)
+    {
+        if(username == users[i].username && password == users[i].password)
+        {
+          userCollectionID = username + "_collection"
+          return <Navigate to= "/LoginSuccess" ></Navigate>; 
+        }
+        else
+        {
+          console.log("Username " + username  + ", password: " + password
+          + " does not match " + users[i].username + " and " + users[i].password)
+        }
+
+    }
+      if(i == len)
+      {
+        console.log("Wrong username/password")
+        resetUsername(); 
+        resetPassword(); 
+        resetSubmit(); 
+        return <Navigate to= "/LoginFail"></Navigate>; 
+      }
+  }
+
+  return (creatingAccount) ? < CreateAccount setUsnm={setUsername} setPswd={setPassword} setCreatingAccount={setCreatingAccount}/> : 
+  (
     <div className = "LoginContainer">
       <div className="Login">
         <img src = "https://i.imgur.com/on0rQlH.png" alt="wen2eat logo"></img>
-        {/* <h1>wen2eat</h1> */}
-      
-        <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
-      
-        {renderLoginResult(username, password, submittedForm, users)}
+        <LoginForm username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} toCreate={() => setCreatingAccount(true)}></LoginForm>
+        {doAuthenticate()}
       </div>
     </div>
-
-
-  );
+  )
 }
 
 export {
