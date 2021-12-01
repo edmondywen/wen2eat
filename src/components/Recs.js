@@ -23,6 +23,8 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     */
    const getRecipe = (key) => 
    {
+    console.log("key")
+    console.log(key)
     let ingredientString = ""
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
     ingredientString = encodeURIComponent(ingredientString)
@@ -41,9 +43,10 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         console.log(data)
         if(data.status === 'failure')
         {
-            if(key = APIKEY.length-1)
+            if(key === APIKEY.length-1)
             {
-            console.log("error")
+            console.log(APIKEY.length)
+            console.log("this error")
             }else
             {
             getRecipe(key+1)
@@ -53,7 +56,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         setRecipe(data.results)
       })
       .catch(() => {
-        if(key = APIKEY.length-1)
+        if(key === APIKEY.length-1)
         {
           console.log("error")
         }else
