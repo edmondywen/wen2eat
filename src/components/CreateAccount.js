@@ -87,19 +87,22 @@ function CreateAccount({setUsnm, setPswd, setCreatingAccount})
     useEffect( () => {console.log(username)}); 
 
     return(
-        <div>
-            <div>
-                <h1> wen2eat </h1>
-                <button onClick={() => {
-                    setCreatingAccount(false)
-                    }}>
-                    Return to home
-                </button>
-                <h2> THIS IS NOT SECURE AT ALL; do not use any account details that you use anywhere else.</h2>
-            <p>The username you want is: {username}</p>
-            <p>The password you want is: {password}</p>
+        <div className = "LoginContainer">
+            <div className = "Login">
+                <div>
+                    <img src = "https://i.imgur.com/on0rQlH.png" alt="wen2eat logo"></img>
+                    <br/>
+                    <button onClick={() => {
+                        setCreatingAccount(false)
+                        }}>
+                        Return to home
+                    </button>
+                    <h2> THIS IS NOT SECURE AT ALL; do not use any account details that you use anywhere else.</h2>
+                <p>The username you want is: {username}</p>
+                <p>The password you want is: {password}</p>
+                </div>
+                <CreateAccountForm  username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} handleSubmit={handleSubmit} userMessage={message}/>
             </div>
-            <CreateAccountForm  username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} handleSubmit={handleSubmit} userMessage={message}/>
         </div>
     )
 }
