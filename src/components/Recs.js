@@ -73,7 +73,9 @@ function Recs({ingredients, data}) {
     return(
         <div className="Recs">
             <h1>Recommendations</h1>
-            <button id = "Recepie-Button" onClick={() => getRecipe(2)}>Get Recepies! 🥧</button>
+            {/* TODO: wrap this in a div so that I can arrange the layout of the buttons or I could add margin. make buttons the same size */}
+            <button className = "recs-button" onClick={() => getRecipe(2)}>Get Recepies! 🥧</button>
+            <button className = "recs-button"> Show Favorites ★</button>
             {getAllRecipes()}
         </div>   
     );

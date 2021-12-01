@@ -10,7 +10,7 @@
     padding-left: calc(10px + 1vh);
 }
 
-#Recepie-Button{
+.recs-button{
   color: black;
   border-color: white;
   background-color: white;
@@ -24,9 +24,17 @@
   cursor: pointer;
 }
 
-#Recepie-Button:hover{
+.recs-button:hover{
   /* background-color: green; */
   background-color: black;
   border-color: black;
   color: white;
+}
+
+#Recepie-Button{
+
+}
+
+#Recepie-Button:hover{
+
 }
