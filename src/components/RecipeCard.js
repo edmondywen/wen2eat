@@ -10,6 +10,7 @@ title - title of recipe
 description - description of the recipe
 image - url to a picture of the dish 
 link - link to the recipe itself
+isChecked - bool to see if the checkbox should be checked or not 
 */
 
 function RecipeCard(props) {
@@ -26,19 +27,23 @@ function RecipeCard(props) {
             </div>
             <div className="Recipe-Fav-Select">
                 <input onClick = {() => {
+                        // alert(props.isChecked)
                         if(document.getElementById(props.id).selected != true)
                         {
-                            props.addFavorite(props.id)
+                            props.addFavorite(props.id);
+                            document.getElementById(props.id).selected = true;
                         }
                         else
                         {
                             props.removeFavorite(props.id)
+                            document.getElementById(props.id).selected = false;
                         }
                     }}
                     class="star"
                     id={props.id}
                     placeholder="favorite"
-                    type = "checkbox" 
+                    type = "checkbox"
+                    // checked = {props.isChecked} 
                 ></input>
             </div>
         </div>

@@ -13,7 +13,8 @@ import db from '../firebase'
 
 function Recs({ingredients, dietaryRestrictions, intolerances}) {
   let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
-    const [recipe, setRecipe] = useState([])
+    const [recipe, setRecipe] = useState([]);
+    const [favoriteIDs, setFavoriteIDs] = useState([]);
     const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884', 'dd90b98918d5434ebe78168613318483', 'c23ad133748d40dfb83f32f6422023cc', '7312fa0da4e846c1a3002cd318730097']
     const [currentKey, setCurrentKey] = useState(0)
     const [page, setPage] = useState(0)
@@ -23,8 +24,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         {id:, recipe that is [recipe data structure]}
         where [recipe data structure] = {title:, description:, image:, faved:,}
     */
-   const getRecipe = (key) => 
-   {
+  const getRecipe = (key) => {
     // console.log("key")
     // console.log(key)
     let ingredientString = ""
@@ -67,7 +67,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
           getRecipe(key+1)
         }
       });
-   }
+  }
   
    async function pushFavorite(recipe_id)
    {
@@ -97,9 +97,9 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     }
     console.log("favs are")
     console.log(favorites)
+    setFavoriteIDs(favorites);
     getRecipeByID(currentKey, favorites)
    }
-
 
     function getAllRecipes() {
         // Receives all props from Recs
@@ -113,7 +113,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
             description={summary} 
             image={rec.image}
             link={rec.sourceUrl}
-            faved="your mom"
+            // isChecked={ (favoriteIDs.includes(rec.id)) ? false: true }
             id={rec.id}
             addFavorite={pushFavorite}
         />)
