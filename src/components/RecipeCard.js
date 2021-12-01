@@ -25,9 +25,18 @@ function RecipeCard(props) {
                 <p className="Description"> {props.description} </p>
             </div>
             <div className="Recipe-Fav-Select">
-                <input
+                <input onClick = {() => {
+                        if(document.getElementById(props.id).selected != true)
+                        {
+                            props.addFavorite(props.id)
+                        }
+                        else
+                        {
+                            props.removeFavorite(props.id)
+                        }
+                    }}
                     class="star"
-                    id="favorite-recipe"
+                    id={props.id}
                     placeholder="favorite"
                     type = "checkbox" 
                 ></input>
