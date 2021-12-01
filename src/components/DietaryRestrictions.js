@@ -24,23 +24,26 @@ function DietaryRestrictions({onFlip, DietSet, IntolerancesSet}){
 
             <div className="Diet">
                 <h3>Diet</h3>
-                <DRItem id="Matthew ID" name="Matthew Name" value = "Matthew Value" changeFunction={DietSet} /> 
-                {diet_options.map((option) => {
-                    return(
-                        <DRItem id={option} name={option} value ={option} changeFunction={DietSet} />
-                    )
-                })}
+                <div className="Checkboxes">
+                    {diet_options.map((option) => {
+                        return(
+                            <DRItem id={option} name={option} value ={option} changeFunction={DietSet} />
+                        )
+                    })}
+                </div>
                 <p></p>
             </div>
 
 
             <div className="Intolerances">
                 <h3>Intolerances</h3>
+                <div className="Checkboxes">
                     {intolerance_options.map((option) => {
                         return(
                             <DRItem id={option} name={option} value ={option} changeFunction={IntolerancesSet} />
                         )
                     })}
+                </div>
                     <p></p>
             </div>
         </div>
