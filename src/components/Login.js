@@ -15,48 +15,6 @@ import {collection, onSnapshot} from "@firebase/firestore"
 let userCollectionID = "ingredients"
 
 
-function renderLoginResult(username, password, submittedForm, users, resetUsername, resetPassword, resetSubmit)
-{
-  console.log("rendering LoginResult"); 
-
-  return (<LoginResult username = {username} password = {password} submittedForm = {submittedForm} users = {users} resetUsername = {() => resetUsername} resetPassword = {() => resetPassword} resetSubmit = {() => resetSubmit}></LoginResult>); 
-}
-
-
-function LoginResult(props)
-{
-  if(!props.submittedForm) 
-    return null; //render nothing because we're still on the login form page 
-
-  //Try to find a match for users 
-  let len = props.users.length
-  let i = 0; 
-  for( ; i < len; i++)
-  {
-    if(props.username == props.users[i].username && props.password == props.users[i].password)
-    {
-      props.resetSubmit(); 
-      userCollectionID = props.username + "_collection"
-      return <Navigate to= "/LoginSuccess" ></Navigate>; 
-    }
-    else
-    {
-      console.log("Username " + props.username  + ", password: " + props.password
-      + " does not match " + props.users[i].username + " and " + props.users[i].password)
-    }
-  }
-  if(i == len)
-  {
-    console.log("Wrong username/password")
-    props.resetUsername(); 
-    props.resetPassword(); 
-    props.resetSubmit(); 
-    return <Navigate to= "/LoginFail"></Navigate>; 
-  }
-
-
-}
-
 function handleSubmit(event)
 {
   event.preventDefault(); 
@@ -88,16 +46,48 @@ function Login() {
 
   const logout = () => {setUsername(""); setPassword(""); setSubmittedForm(false); userCollectionID = "ingredients"}
 
+  const doAuthenticate = () =>
+  {
+    if(!submittedForm) 
+      return null; //render nothing because we're still on the login form page 
+
+    //Try to find a match for users 
+    let len = users.length
+    console.log("len is : " + len)
+    let i = 0; 
+    for( ; i < len; i++)
+    {
+        if(username == users[i].username && password == users[i].password)
+        {
+          userCollectionID = username + "_collection"
+          return <Navigate to= "/LoginSuccess" ></Navigate>; 
+        }
+        else
+        {
+          console.log("Username " + username  + ", password: " + password
+          + " does not match " + users[i].username + " and " + users[i].password)
+        }
+
+    }
+      if(i == len)
+      {
+        console.log("Wrong username/password")
+        resetUsername(); 
+        resetPassword(); 
+        resetSubmit(); 
+        return <Navigate to= "/LoginFail"></Navigate>; 
+      }
+  }
+
   return (
   
     <div className="Login">
       <h1>wen2eat</h1>
     
-      <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
+      <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
     
-      {renderLoginResult(username, password, submittedForm, users)}
+      {doAuthenticate()}
 
-      <LogoutButton reset = {logout}></LogoutButton>
 
       {/* {console.log(users)}
       {console.log(users.length)}
