@@ -8,7 +8,7 @@ import { useState } from "react";
 import RecipeCard from './RecipeCard.js'
 import "./Recs.css"
 import {userCollectionID} from "./Login.js"
-import { collection, addDoc, getDocs } from "@firebase/firestore"
+import { collection, addDoc, getDocs, query, where, deleteDoc } from "@firebase/firestore"
 import db from '../firebase'
 
 function Recs({ingredients, dietaryRestrictions, intolerances}) {
@@ -80,7 +80,14 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
    }
    async function deleteFavorite(recipe_id)
    {
+    const q = query(collection(db, collectionName), where("id", "==", recipe_id));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+     // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
 
+      deleteDoc(doc.ref)
+      });
    }
 
    async function getAllFavorites()
