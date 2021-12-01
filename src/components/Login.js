@@ -50,8 +50,8 @@ function Login() {
         }
         else
         {
-          console.log("Username " + username  + ", password: " + password
-          + " does not match " + users[i].username + " and " + users[i].password)
+          // console.log("Username " + username  + ", password: " + password
+          // + " does not match " + users[i].username + " and " + users[i].password)
         }
 
     }
