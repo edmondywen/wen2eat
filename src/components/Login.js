@@ -1,9 +1,10 @@
-import { Link, Outlet } from "react-router-dom"
+  import { Link, Outlet } from "react-router-dom"
 //Spoonacular API Key: f87bfe3073584580bd8a6fb6eafa20f8
 
 import LoginForm from "./LoginForm"
 import LoginSuccess from "./LoginSuccess"
 import LoginFail from "./LoginFail"
+import LogoutButton from "./LogoutButton"
 import React, { useEffect, useState } from "react"
 import './Login.css'
 import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
@@ -12,6 +13,7 @@ import {collection, onSnapshot} from "@firebase/firestore"
 
 
 let userCollectionID = "ingredients"
+
 
 function renderLoginResult(username, password, submittedForm, users, resetUsername, resetPassword, resetSubmit)
 {
@@ -84,6 +86,8 @@ function Login() {
   const resetPassword = () => {setPassword("")}
   const resetSubmit = () => {setSubmittedForm(false)}
 
+  const logout = () => {setUsername(""); setPassword(""); setSubmittedForm(false); userCollectionID = "ingredients"}
+
   return (
   
     <div className="Login">
@@ -92,6 +96,13 @@ function Login() {
       <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
     
       {renderLoginResult(username, password, submittedForm, users)}
+
+      <LogoutButton reset = {logout}></LogoutButton>
+
+      {/* {console.log(users)}
+      {console.log(users.length)}
+      {console.log(users[2])}
+      {console.log("submittedForm is " + submittedForm)} */}
     </div>
     
 
