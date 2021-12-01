@@ -30,7 +30,6 @@ function RecipeCard(props) {
                     id="favorite-recipe"
                     placeholder="favorite"
                     type = "checkbox" 
-                    // checked
                 ></input>
             </div>
         </div>

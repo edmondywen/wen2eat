@@ -24,6 +24,44 @@ function Pantry() {
     const [date, setDate] = useState(""); //expiration date. 
     const [onDR, setOnDR] = useState(false);
 
+    const [DietList, setDietList] = useState([]);
+    const [IntolerancesList, setIntolerancesList] = useState([]);
+
+    function DietSet(x, isAdded) {
+        console.log("New iteration");
+        console.log(isAdded);
+        console.log(DietList);
+        if (isAdded) {
+            console.log("you are here");
+            const newDietList = DietList.filter(DietItem => x !== DietItem);
+            setDietList(newDietList);
+        }
+        else {
+            let copyDietList = DietList.slice();
+            copyDietList.push(x);
+            setDietList(copyDietList);
+        }
+        console.log(DietList);
+    }
+
+    
+    function IntolerancesSet(x, isAdded) {
+        console.log("New iteration");
+        console.log(isAdded);
+        console.log(IntolerancesList);
+        if (isAdded) {
+            console.log("you are here");
+            const newIntolerancesList = IntolerancesList.filter(IntoleranceItem => x !== IntoleranceItem);
+            setIntolerancesList(newIntolerancesList);
+        }
+        else {
+            let copyIntolerancesList = IntolerancesList.slice();
+            copyIntolerancesList.push(x);
+            setIntolerancesList(copyIntolerancesList);
+        }
+        console.log(IntolerancesList);
+    }
+
     const setupFirestoreListener = () => {
         console.log(db);
         return onSnapshot(collection(db, userCollectionID), (snapshot) => 
@@ -80,7 +118,7 @@ function Pantry() {
         await addDoc(collectionRef, ingredient)
     }
 
-    return (onDR) ? <DietaryRestrictions onFlip={onFlip}/> : (
+    return (onDR) ? <DietaryRestrictions onFlip={onFlip} DietSet={DietSet} IntolerancesSet={IntolerancesSet}/> : (
         <div className="Pantry">
             <h1>Pantry</h1>
             <div className="Links">

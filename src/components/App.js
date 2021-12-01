@@ -7,6 +7,7 @@ import {userCollectionID} from "./Login.js"
 import { query, limit, orderBy, getDocs, onSnapshot, collection, setDoc, doc, addDoc, getDoc, deleteDoc} from "@firebase/firestore"
 import db from '../firebase'
 import { useEffect, useState } from "react"
+import Pantry from './Pantry.js';
 
 function App() {
   const [ingredients, setIngredients] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
@@ -70,7 +71,8 @@ function App() {
         </div>
       </div>
       <div className="App-body">
-        <Outlet></Outlet>
+        {/* <Outlet></Outlet> */}
+        <Pantry />
         <Recs data={recs} ingredients={ingredients}></Recs>
       </div>
     </div>
