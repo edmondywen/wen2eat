@@ -17,7 +17,7 @@ function CreateAccount()
 {
     const[username, setUsername] = useState(""); 
     const[password, setPassword] = useState(""); 
-    const [invalidUser, setInvalidUser] = useState(false)
+    const [userState, setUserState] = useState(0)
 
 function handleSubmit(event)
 {
@@ -62,14 +62,15 @@ async function usernameIsAvailable(username)
         }
         else
         {
-            setInvalidUser(true);
+            setUserState(1)
+            return null
         }
         //Note: Don't need to create a new collection for the user because Firebase automatically does that for us when we attempt to add a doc to the new collection
     }
 
     const message = () =>
     {
-        if(invalidUser)
+        if(userState===1)
         {
             return (<p>That username is not available you loser</p>)
         }
@@ -80,7 +81,6 @@ async function usernameIsAvailable(username)
 
     return(
         <CreateAccountForm  username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} handleSubmit={handleSubmit} userMessage={message}/>
-
     )
 }
 
