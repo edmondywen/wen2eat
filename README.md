@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# wen2eat
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Fall 2021 CS 35L Final Project by Cameron Fiske, Ray Hsiao, Eric Ma, Edmond Wen, Jess Xu
 
-## Available Scripts
+Our app mitigates risk of household food waste by maintaining a list of a user’s ingredients and their expiration dates. Based on that information, the app will customize a list of recommended recipes for the user.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### Display dynamic data
+Our **website shows a list of ingredients** that the user has on hand **and their respective expiration dates**. The **user can modify this list**, which will update both the database and the frontend.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Upload persistant data to backend
+When a **user modifies their list of on-hand ingredients, that information is updated in our database**. This information will also be **associated with a specific user**.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Search through data
+**Compares recipes to available ingredients to find ideal recipe ideas for food that is on hand**. Results will be filtered based on dietary restrictions.
 
-### `npm test`
+### Unique Features
+1. Users can log in to keep track of their pantry.
+2. Users can input dietary restrictions to filter recipe recommendations.
+3. Users can select favorite recipes that they can view and edit at any time.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup
 
-### `npm run build`
+1. Clone the repo `git clone https://github.com/edmondywen/wen2eat.git`
+2. Change directory `cd wen2eat`
+3. Install packages `npm install` `npm install react-router-dom@6` `npm install react-alert` `npm install firebase`
+4. Start the development server `npm start`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Using the app
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Add ingredients and their associated expiration dates to your pantry with the submit box.
+* Toggle between your Pantry and Dietary Restrictions with the "Flip to Pantry/Dietary Restrictions" button.
+* If applicable, select a diet you want to adhere to and/or any food intolerances.
+* Click the "Get Recepies 🥧" button to generate recipes based on your Pantry and Dietary Restrictions.
+* Click the star on any recipe cards you want to favorite -- they will be displayed when you click "Show favorites ★".
+* Login on the login page the "Login" button directs you to with your wen2eat account to save your information
+* If you don't already have a wen2eat account, you can create a one after clicking "Create a new account" on the login page
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+We hope you enjoy using our app to help you figure out what to make and wen2eat it!
