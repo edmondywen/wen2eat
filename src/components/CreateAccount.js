@@ -1,33 +1,28 @@
-
 import React, { useEffect, useState } from "react"
-import { Alert } from 'react-alert'
 import { collection, addDoc, getDocs } from "@firebase/firestore"
-import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
 import db from '../firebase'
 import CreateAccountForm from "./CreateAccountForm.js"
 
 
-
-
-
-
-
-
-function CreateAccount()
+function CreateAccount({setUsnm, setPswd, setCreatingAccount})
 {
     const[username, setUsername] = useState(""); 
     const[password, setPassword] = useState(""); 
     const [userState, setUserState] = useState(0)
+    //0 = not submitted anything yet 
+    //1 = invalid username (taken)
+    //2 = invalid password length 
+    //3 = valid username and password
 
-function handleSubmit(event)
-{
-    event.preventDefault(); 
-    console.log("something was submitted");
-    attemptToAddAccount(event.target.username.value, event.target.password.value); 
-}
+    function handleSubmit(event)
+    {
+        event.preventDefault(); 
+        console.log("something was submitted");
+        attemptToAddAccount(event.target.username.value, event.target.password.value); 
+    }
 
-async function usernameIsAvailable(username)
-{
+    async function usernameIsAvailable(username)
+    {
     const querySnapshot = await getDocs(collection(db, "users"));
     let len = querySnapshot.size
     console.log("len is " + len)
@@ -53,13 +48,22 @@ async function usernameIsAvailable(username)
             password: pass
         })
     }
+
     async function attemptToAddAccount(user, pass)
     {
-        if(await usernameIsAvailable(user))
+        console.log(pass.length)
+        if((await usernameIsAvailable(user)) && pass.length > 0)
         {
-            // alert("That username is available. You can go back to the homepage now and log in.")
             setUserState(3)
             addAccountToDatabase(user, pass)
+            setUsnm(user)
+            setPswd(pass)
+            setCreatingAccount(false)
+        }
+        else if (pass.length == 0)
+        {
+            console.log("password too short")
+            setUserState(2)
         }
         else
         {
@@ -75,10 +79,7 @@ async function usernameIsAvailable(username)
             return (<p>That username is not available you loser</p>)
         }else if(userState == 2)
         {
-            return (<p>That password is not available you blockhead</p>)
-        }else if(userState == 3)
-        {
-            return (<Navigate to= "/Login" ></Navigate>)
+            return (<p>That password is not valid you blockhead</p>)
         }
         return null
     }
@@ -86,7 +87,20 @@ async function usernameIsAvailable(username)
     useEffect( () => {console.log(username)}); 
 
     return(
-        <CreateAccountForm  username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} handleSubmit={handleSubmit} userMessage={message}/>
+        <div>
+            <div>
+                <h1> wen2eat </h1>
+                <button onClick={() => {
+                    setCreatingAccount(false)
+                    }}>
+                    Return to home
+                </button>
+                <h2> THIS IS NOT SECURE AT ALL; do not use any account details that you use anywhere else.</h2>
+            <p>The username you want is: {username}</p>
+            <p>The password you want is: {password}</p>
+            </div>
+            <CreateAccountForm  username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} handleSubmit={handleSubmit} userMessage={message}/>
+        </div>
     )
 }
 

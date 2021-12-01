@@ -1,10 +1,4 @@
-  import { Link, Outlet } from "react-router-dom"
-//Spoonacular API Key: f87bfe3073584580bd8a6fb6eafa20f8
-
 import LoginForm from "./LoginForm"
-import LoginSuccess from "./LoginSuccess"
-import LoginFail from "./LoginFail"
-import LogoutButton from "./LogoutButton"
 import React, { useEffect, useState } from "react"
 import './Login.css'
 import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
@@ -16,22 +10,15 @@ import CreateAccount from "./CreateAccount"
 let userCollectionID = "ingredients"
 
 
-function handleSubmit(event)
-{
-  event.preventDefault(); 
-  console.log("submitted something"); 
-  console.log("USERNAME IS " + event.target.username.value + " , PASSWORD IS " + event.target.password.value);
-}
-
-
 function Login() {
-  const[username, setUsername] = useState("stranger"); 
-  const[password, setPassword] = useState(""); 
-  const[submittedForm, setSubmittedForm] = useState(false); 
+  const[username, setUsername] = useState("")
+  const[password, setPassword] = useState("")
+  const[submittedForm, setSubmittedForm] = useState(false)
   const[users, setUsers] = useState({
     username: "",
     password: ""
   })
+  const [creatingAccount, setCreatingAccount] = useState(false)
 
   const updateUsers = () => {
     return onSnapshot(collection(db, "users"), (snapshot) => 
@@ -45,12 +32,10 @@ function Login() {
   const resetPassword = () => {setPassword("")}
   const resetSubmit = () => {setSubmittedForm(false)}
 
-  const logout = () => {setUsername(""); setPassword(""); setSubmittedForm(false); userCollectionID = "ingredients"}
-
   const doAuthenticate = () =>
   {
     if(!submittedForm) 
-      return null; //render nothing because we're still on the login form page 
+      return null;
 
     //Try to find a match for users 
     let len = users.length
@@ -80,25 +65,14 @@ function Login() {
       }
   }
 
-  return (
-  
+  return (creatingAccount) ? <CreateAccount setUsnm={setUsername} setPswd={setPassword} setCreatingAccount={setCreatingAccount}/> : 
+  (
     <div className="Login">
       <h1>wen2eat</h1>
-    
-      <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
-    
+      <LoginForm username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} toCreate={() => setCreatingAccount(true)}></LoginForm>
       {doAuthenticate()}
-
-
-      {/* {console.log(users)}
-      {console.log(users.length)}
-      {console.log(users[2])}
-      {console.log("submittedForm is " + submittedForm)} */}
     </div>
-    
-
-
-  );
+  )
 }
 
 export {

@@ -26,7 +26,7 @@ ReactDOM.render(
         <Route path="login" element={<Login/>}/>
         <Route path="LoginSuccess" element={<LoginSuccess/>}/>
         <Route path="LoginFail" element={<LoginFail/>}/>
-        <Route path="CreateAccount" element={<CreateAccount/>}/>
+        {/* <Route path="CreateAccount" element={<CreateAccount/>}/> */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
