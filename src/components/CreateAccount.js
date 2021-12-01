@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react"
 import { Alert } from 'react-alert'
 import { collection, addDoc, getDocs } from "@firebase/firestore"
-
+import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
 import db from '../firebase'
 import CreateAccountForm from "./CreateAccountForm.js"
 
@@ -57,13 +57,13 @@ async function usernameIsAvailable(username)
     {
         if(await usernameIsAvailable(user))
         {
-            alert("That username is available. You can go back to the homepage now and log in.")
+            // alert("That username is available. You can go back to the homepage now and log in.")
+            setUserState(3)
             addAccountToDatabase(user, pass)
         }
         else
         {
             setUserState(1)
-            return null
         }
         //Note: Don't need to create a new collection for the user because Firebase automatically does that for us when we attempt to add a doc to the new collection
     }
@@ -73,6 +73,12 @@ async function usernameIsAvailable(username)
         if(userState===1)
         {
             return (<p>That username is not available you loser</p>)
+        }else if(userState == 2)
+        {
+            return (<p>That password is not available you blockhead</p>)
+        }else if(userState == 3)
+        {
+            return (<Navigate to= "/Login" ></Navigate>)
         }
         return null
     }

@@ -10,6 +10,7 @@ import './Login.css'
 import { BrowserRouter as Router, Route, Routes, Navigate} from "react-router-dom"
 import db from '../firebase'
 import {collection, onSnapshot} from "@firebase/firestore"
+import CreateAccount from "./CreateAccount"
 
 
 let userCollectionID = "ingredients"
