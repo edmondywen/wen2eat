@@ -15,6 +15,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
   let collectionName = userCollectionID.substring(0, userCollectionID.length - 11) + "_favorites";
     const [recipe, setRecipe] = useState([])
     const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884', 'dd90b98918d5434ebe78168613318483', 'c23ad133748d40dfb83f32f6422023cc', '7312fa0da4e846c1a3002cd318730097']
+    const [currentKey, setCurrentKey] = useState(0)
     const [page, setPage] = useState(0)
     /*
         Need function to somehow get recommendations from database
@@ -50,6 +51,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
             console.log("this error")
             }else
             {
+            setCurrentKey(key+1)
             getRecipe(key+1)
             }
             return
@@ -95,7 +97,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     }
     console.log("favs are")
     console.log(favorites)
-    getRecipeByID(0, favorites)
+    getRecipeByID(currentKey, favorites)
    }
 
 
@@ -121,6 +123,9 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
 
     function getRecipeByID(key, ids) //used for finding favorited recipes
     {
+      console.log("key")
+      console.log(key)
+      console.log(currentKey)
       let idsString = ""
       ids.forEach((id) => (idsString = idsString + id + ','))
       console.log(`https://api.spoonacular.com/recipes/informationBulk?apiKey=${APIKEY[key]}&ids=${idsString}`)
@@ -138,6 +143,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
               console.log("error, status is failure")
             }else
             {
+              setCurrentKey(key+1)
               getRecipeByID(key+1, ids)
             }
             return
@@ -161,12 +167,12 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         <div className="Recs">
             <h1>Recommendations</h1>
             {/* TODO: wrap this in a div so that I can arrange the layout of the buttons or I could add margin. make buttons the same size */}
-            <button className = "recs-button" onClick={() => getRecipe(0)}>Get Recepies! 🥧</button>
+            <button className = "recs-button" onClick={() => getRecipe(currentKey)}>Get Recepies! 🥧</button>
 
             <button className = "recs-button" onClick={() => getAllFavorites()}> Show Favorites ★</button>
             {getAllRecipes()}
-            {(page !== 0 ) ? <button className = "recs-button" onClick={()=>{setPage(page-1);getRecipe(0)}}> Back </button> : null}
-            {(recipe.length === 10 && page < 90) ? <button className = "recs-button" onClick={()=>{setPage(page+1);getRecipe(0)}}> Next </button> : null}
+            {(page !== 0 ) ? <button className = "recs-button" onClick={()=>{setPage(page-1);getRecipe(currentKey)}}> Back </button> : null}
+            {(recipe.length === 10 && page < 90) ? <button className = "recs-button" onClick={()=>{setPage(page+1);getRecipe(currentKey)}}> Next </button> : null}
             
         </div>   
     );
