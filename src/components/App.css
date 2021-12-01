@@ -1,6 +1,6 @@
 .App {
   display: grid;
-  grid-template-rows: .2fr .8fr;
+  grid-template-rows: .15fr .85fr;
   grid-template-areas: "app-header" "app-body";
   text-align: center;
   margin: 0;
@@ -41,11 +41,28 @@
 
 a{
   text-decoration: none;
-  color: blue;
+  color: #aa6423;
 }
 
 a:visited{
   text-decoration: none;
+}
+
+#LinkHome{
+  color: black;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: white;
+  background-color: white;
+  margin-top: calc(1px + 1vh);
+  margin-bottom: calc(1px + 1vh);
+  transition-duration: 0.4s;
+}
+
+#LinkHome:hover{
+  background-color: black;
+  border-color: black;
+  color: white;
 }
 
 button {
@@ -54,4 +71,22 @@ button {
   border-color: transparent;
   border-style: solid;
   font-size: medium;
+}
+
+input[type=submit]{
+  color: black;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: white;
+  background-color: white;
+  margin-top: calc(1px + 1vh);
+  margin-bottom: calc(1px + 1vh);
+  transition-duration: 0.4s;
+}
+
+input[type=submit]:hover{
+  /* background-color: green; */
+  background-color: black;
+  border-color: black;
+  color: white;
 }

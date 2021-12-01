@@ -16,7 +16,7 @@ export const login_form = ({username, password, handleSubmit, setUsername, setPa
               <input type="password" name="password" onChange={event => setPassword(event.target.value)}/><br/> 
               <input type="submit" value="Submit"/> 
           </form>
-          <Link to="/CreateAccount">Create Account</Link>
+          <Link to="/CreateAccount"><button id = "LinkHome">Create Account</button></Link>
         </div>
 
     )

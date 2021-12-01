@@ -15,6 +15,9 @@
     background-color: white;
 
     height: 100vh;
+
+    border-radius: 10px;
+    border-style: solid;
 }
 
 .Pantry-Item{
@@ -32,8 +35,6 @@
     border-color: black;
     border-width: thin;
     border-radius: 10px;
-    margin-top: calc(1px + 1vh);
-    margin-bottom: calc(1px + 1vh);
     background-color: #F2D4B7;
 }
 

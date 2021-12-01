@@ -86,14 +86,16 @@ function Login() {
 
   return (
   
-    <div className="Login">
-      <h1>wen2eat</h1>
-    
-      <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
-    
-      {renderLoginResult(username, password, submittedForm, users)}
+    <div className = "LoginContainer">
+      <div className="Login">
+        <img src = "https://i.imgur.com/on0rQlH.png" alt="wen2eat logo"></img>
+        {/* <h1>wen2eat</h1> */}
+      
+        <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
+      
+        {renderLoginResult(username, password, submittedForm, users)}
+      </div>
     </div>
-    
 
 
   );
