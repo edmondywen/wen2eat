@@ -8,7 +8,7 @@ import { useState } from "react";
 import RecipeCard from './RecipeCard.js'
 import "./Recs.css"
 import {userCollectionID} from "./Login.js"
-import { collection, addDoc, getDocs } from "@firebase/firestore"
+import { collection, addDoc, getDocs, query, where, deleteDoc } from "@firebase/firestore"
 import db from '../firebase'
 
 function Recs({ingredients, dietaryRestrictions, intolerances}) {
