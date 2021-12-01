@@ -14,56 +14,51 @@ import {collection, onSnapshot} from "@firebase/firestore"
 
 let userCollectionID = "ingredients"
 
+// function renderLoginResult(username, password, submittedForm, users, resetUsername, resetPassword, resetSubmit)
+// {
+//   console.log("rendering LoginResult"); 
 
-function renderLoginResult(username, password, submittedForm, users, resetUsername, resetPassword, resetSubmit)
-{
-  console.log("rendering LoginResult"); 
-
-  return (<LoginResult username = {username} password = {password} submittedForm = {submittedForm} users = {users} resetUsername = {() => resetUsername} resetPassword = {() => resetPassword} resetSubmit = {() => resetSubmit}></LoginResult>); 
-}
-
-
-function LoginResult(props)
-{
-  if(!props.submittedForm) 
-    return null; //render nothing because we're still on the login form page 
-
-  //Try to find a match for users 
-  let len = props.users.length
-  let i = 0; 
-  for( ; i < len; i++)
-  {
-    if(props.username == props.users[i].username && props.password == props.users[i].password)
-    {
-      props.resetSubmit(); 
-      userCollectionID = props.username + "_collection"
-      return <Navigate to= "/LoginSuccess" ></Navigate>; 
-    }
-    else
-    {
-      console.log("Username " + props.username  + ", password: " + props.password
-      + " does not match " + props.users[i].username + " and " + props.users[i].password)
-    }
-  }
-  if(i == len)
-  {
-    console.log("Wrong username/password")
-    props.resetUsername(); 
-    props.resetPassword(); 
-    props.resetSubmit(); 
-    return <Navigate to= "/LoginFail"></Navigate>; 
-  }
+//   return (<LoginResult username = {username} password = {password} submittedForm = {submittedForm} users = {users} resetUsername = {() => resetUsername} resetPassword = {() => resetPassword} resetSubmit = {() => resetSubmit}></LoginResult>); 
+// }
 
 
-}
+// function LoginResult(props)
+// {
+//   if(!props.submittedForm) 
+//     return null; //render nothing because we're still on the login form page 
+//   let len = props.users.length
+//   let i = 0; 
+//   for( ; i < len; i++)
+//   {
+//     if(props.username == props.users[i].username && props.password == props.users[i].password)
+//     {
+//       props.resetSubmit(); 
+//       userCollectionID = props.username + "_collection"
+//       return <Navigate to= "/LoginSuccess" ></Navigate>; 
+//     }
+//     else
+//     {
+//       console.log("Username " + props.username  + ", password: " + props.password
+//       + " does not match " + props.users[i].username + " and " + props.users[i].password)
+//     }
+//   }
+//   if(i == len)
+//   {
+//     console.log("Wrong username/password")
+//     props.resetUsername(); 
+//     props.resetPassword(); 
+//     props.resetSubmit(); 
+//     return <Navigate to= "/LoginFail"></Navigate>; 
+//   }
+// }
 
-function handleSubmit(event)
-{
-  event.preventDefault(); 
-  console.log("submitted something"); 
-  console.log("USERNAME IS " + event.target.username.value + " , PASSWORD IS " + event.target.password.value);
-}
-
+// function handleSubmit(event)
+// {
+//   event.preventDefault(); 
+//   console.log("submitted something"); 
+//   console.log("USERNAME IS " + event.target.username.value + " , PASSWORD IS " + event.target.password.value);
+//   LoginResult();
+// }
 
 function Login() {
   const[username, setUsername] = useState("stranger"); 
@@ -73,6 +68,36 @@ function Login() {
     username: "",
     password: ""
   })
+
+  // const checkAuthentication = () => 
+  // {
+  //   if(submittedForm) 
+  //     return false; //render nothing because we're still on the login form page 
+  //   let len = users.length
+  //   let i = 0; 
+  //   for( ; i < len; i++)
+  //   {
+  //     if(props.username == users[i].username && password == users[i].password)
+  //     {
+  //       resetSubmit(); 
+  //       userCollectionID = props.username + "_collection"
+  //       return <Navigate to= "/LoginSuccess" ></Navigate>; 
+  //     }
+  //     else
+  //     {
+  //       console.log("Username " + props.username  + ", password: " + props.password
+  //       + " does not match " + props.users[i].username + " and " + props.users[i].password)
+  //     }
+  //   }
+  //   if(i == len)
+  //   {
+  //     console.log("Wrong username/password")
+  //     props.resetUsername(); 
+  //     props.resetPassword(); 
+  //     props.resetSubmit(); 
+  //     return <Navigate to= "/LoginFail"></Navigate>; 
+  //   }
+  // }
 
   const updateUsers = () => {
     return onSnapshot(collection(db, "users"), (snapshot) => 
@@ -93,9 +118,9 @@ function Login() {
     <div className="Login">
       <h1>wen2eat</h1>
     
-      <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
+      <LoginForm username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
     
-      {renderLoginResult(username, password, submittedForm, users)}
+      {/* {renderLoginResult(username, password, submittedForm, users)} */}
 
       <LogoutButton reset = {logout}></LogoutButton>
 
