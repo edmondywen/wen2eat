@@ -22,7 +22,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     let ingredientString = ""
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
     ingredientString = encodeURIComponent(ingredientString)
-    // let dietString = ""
+    let dietString = dietaryRestrictions;
     // dietaryRestrictions.forEach((diet) => dietString = dietString + "diet=" + encodeURIComponent(diet) + '&')
     // console.log("DIETS:")
     // console.log(dietString)
@@ -30,7 +30,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     intolerances.forEach((intolerance) => intoleranceString = intoleranceString + "," + intolerance)
 
     fetch(
-         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&intolerances=${intoleranceString}&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
+         `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&intolerances=${intoleranceString}&diet=${dietString}&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
         )
       .then((response) => response.json())
       .then((data) => {
