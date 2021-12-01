@@ -13,11 +13,11 @@ Our **website shows a list of ingredients** that the user has on hand **and thei
 When a **user modifies their list of on-hand ingredients, that information is updated in our database**. This information will also be **associated with a specific user**.
 
 ### Search through data
-**Compares recipes to available ingredients to find ideal recipe ideas for food that is on hand**. Results will be filtered based on dietary restrictions.
+**Allow users to input dietary restrictions to filter recipe recommendations.**
 
 ### Unique Features
 1. Users can log in to keep track of their pantry.
-2. Users can input dietary restrictions to filter recipe recommendations.
+2. Compares recipes to available ingredients to find ideal recipe ideas for food that is on hand. Results will be filtered based on dietary restrictions.
 3. Users can select favorite recipes that they can view at any time.
 
 ## Setup
