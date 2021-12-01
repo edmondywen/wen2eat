@@ -20,6 +20,8 @@
   max-width: 25%;
   margin-top: calc(1px + 1vh);
   margin-bottom: calc(1px + 1vh);
+  margin-left: calc(0.5vh);
+  margin-right: calc(0.5vh);
   transition-duration: 0.4s;
   cursor: pointer;
 }
@@ -29,12 +31,4 @@
   background-color: black;
   border-color: black;
   color: white;
-}
-
-#Recepie-Button{
-
-}
-
-#Recepie-Button:hover{
-
 }

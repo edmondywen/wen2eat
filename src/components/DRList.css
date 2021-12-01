@@ -13,8 +13,10 @@ ul {
     margin-right: calc(5px + 1vw);
     /* background-color: orange; */
 
-    height: 100vh;
     background-color: white;
+
+    border-radius: 10px;
+    border-style: solid;
 }
 
 .Diet {
