@@ -5,8 +5,6 @@ import './DRList.css'
 import DRItem from "./DRItem";
 
 function DietaryRestrictions({onFlip, DietSet, IntolerancesSet}){
-    const [items, setItems] = useState([]);
-    const [text, setText] = useState(""); 
 
 
     let diet_options = ['gluten free', 'ketogenic', 'vegetarian', 'ovo-vegetarian', 'lacto-vegetarian', 'vegan',

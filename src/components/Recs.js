@@ -8,7 +8,7 @@ import { useState } from "react";
 import RecipeCard from './RecipeCard.js'
 import "./Recs.css"
 
-function Recs({ingredients, data}) {
+function Recs({ingredients, dietaryRestrictions, intolerances}) {
     const [recipe, setRecipe] = useState([])
     const APIKEY = ['f5c4a28754c8421a87b7caae4e66f5b8', 'f87bfe3073584580bd8a6fb6eafa20f8', '172c8e43ebeb4f848f87dae833c0165d', '1d37f991a41c4cb4b722cac38d7173b2', '036df255673a40a8a6cf357fe0bcbfe2', 'a09e68c0e447408cbc7a44c8b3ad0884']
     /*
@@ -22,7 +22,9 @@ function Recs({ingredients, data}) {
     let ingredientString = ""
     ingredients.forEach((ingredient) => ingredientString = ingredientString + "," +ingredient.ingredient)
     ingredientString = '+' + encodeURIComponent(ingredientString)
+    
     console.log(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&diet=vegetarian&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`)
+
     fetch(
          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${APIKEY[key]}&includeIngredients=${ingredientString}&diet=vegetarian&sort=min-missing-ingredients&addRecipeInformation=true&fillIngredients=true`
         )

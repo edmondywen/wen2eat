@@ -18,14 +18,13 @@ states:
 - items: an array of all of the items inside of the pantry 
 */
 
-function Pantry() {
-    const [items, setItems] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
+function Pantry({items, DietList, setDietList, IntolerancesList, setIntolerancesList}) {
+    // const [items, setItems] = useState([]); //array of 3 item arrays where [0] is the item name and [1] is the exp date and [2] if the id
     const [text, setText] = useState(""); //submit box text 
     const [date, setDate] = useState(""); //expiration date. 
     const [onDR, setOnDR] = useState(false);
 
-    const [DietList, setDietList] = useState([]);
-    const [IntolerancesList, setIntolerancesList] = useState([]);
+    
 
     function DietSet(x, isAdded) {
         console.log("New iteration");
@@ -62,16 +61,6 @@ function Pantry() {
         console.log(IntolerancesList);
     }
 
-    const setupFirestoreListener = () => {
-        console.log(db);
-        return onSnapshot(collection(db, userCollectionID), (snapshot) => 
-          setItems(snapshot.docs.map((doc) => (
-            {ingredient: doc.data().ingredient, expiration: (doc.data().expiration === undefined) ? "" : doc.data().expiration.toDate(), id: doc.id}
-            ))
-        ))
-    }
-    useEffect(setupFirestoreListener, []);
-
     const onFlip = () => {
         setOnDR(!onDR)
     }
@@ -84,8 +73,6 @@ function Pantry() {
         const ingredient = {ingredient: text, expiration: date}
         addIngredient(ingredient)
         setText("");
-        // console.log(items);
-        // setDate("Expiration");
     }
 
     async function deleteItem(element)
@@ -162,7 +149,7 @@ function Pantry() {
             <button
                 id="submit-button"
                 onClick={submit}
-            > 
+            >
                 Submit 
             </button>
         </div>
