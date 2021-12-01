@@ -72,13 +72,13 @@ function DietaryRestrictions({onFlip}){
 
             <div className="Diet">
                 <h3>Diet</h3>
-                <DRItem id="Matthew ID" name="Matthew Name" value = "Matthew Value" changeFunction={DietSet} /> 
-                {diet_options.map((option) => {
-                    return(
-                        <DRItem id={option} name={option} value ={option} changeFunction={DietSet} />
-                    )
-                })}
-                
+                <div className="Checkboxes">
+                    {diet_options.map((option) => {
+                        return(
+                            <DRItem id={option} name={option} value ={option} changeFunction={DietSet} />
+                        )
+                    })}
+                </div>
                 <p></p>
 
                 
@@ -88,59 +88,13 @@ function DietaryRestrictions({onFlip}){
 
             <div className="Intolerances">
                 <h3>Intolerances</h3>
+                <div className="Checkboxes">
                     {intolerance_options.map((option) => {
                         return(
                             <DRItem id={option} name={option} value ={option} changeFunction={IntolerancesSet} />
                         )
                     })}
-                    {/* <div>
-                        <input type="checkbox" id="dairy" name="intolerances" value="dairy"/>
-                        <label for="dairy">Dairy</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="egg" name="intolerances" value="egg"/>
-                        <label for="egg">Egg</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="gluten" name="intolerances" value="gluten"/>
-                        <label for="gluten">Gluten</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="grain" name="intolerances" value="grain"/>
-                        <label for="grain">Grain</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="Peanut" name="intolerances" value="lacto-vegetarian"/>
-                        <label for="lacto-vegetarian">Peanut</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="seafood" name="intolerances" value="seafood"/>
-                        <label for="seafood">Seafood</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="sesame" name="intolerances" value="sesame"/>
-                        <label for="sesame">Sesame</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="shellfish" name="intolerances" value="shellfish"/>
-                        <label for="shellfish">Shellfish</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="soy" name="intolerances" value="soy"/>
-                        <label for="soy">Soy</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="sulfite" name="intolerances" value="sulfite"/>
-                        <label for="sulfite">Sulfite</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="tree nut" name="intolerances" value="tree nut"/>
-                        <label for="tree nut">Tree Nut</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="wheat" name="intolerances" value="wheat"/>
-                        <label for="wheat">Wheat</label>
-                    </div> */}
+                </div>
                     <p></p>
             </div>
 
