@@ -92,11 +92,6 @@ function Login() {
       <LoginForm username={username} password={password} handleSubmit = {handleSubmit} setUsername = {setUsername} setPassword = {setPassword} onSubmitButton = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} ></LoginForm>
     
       {renderLoginResult(username, password, submittedForm, users)}
-
-      {/* {console.log(users)}
-      {console.log(users.length)}
-      {console.log(users[2])}
-      {console.log("submittedForm is " + submittedForm)} */}
     </div>
     
 

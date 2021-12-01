@@ -92,8 +92,12 @@ function Pantry({items, DietList, setDietList, IntolerancesList, setIntolerances
     {
         const collectionRef = collection(db, userCollectionID)
         // make sure the expiration date isn't null (ie dried pasta doesn't really expire)
-        
-        ingredient['expiration'] = new Date(ingredient.expiration)
+        console.log(ingredient.expiration)
+        const tempDate = new Date(ingredient.expiration)
+        const diff = tempDate.getTimezoneOffset()
+        ingredient['expiration'] = new Date(tempDate.getTime() + diff*60000);
+        console.log(ingredient.expiration)
+        console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
         if (!ingredient.expiration){
             ingredient['expiration'] = "";
         }
