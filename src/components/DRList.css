@@ -11,6 +11,7 @@ ul {
     border-right-color: black; */
     height: 100%;
     margin-right: calc(5px + 1vw);
+    margin-left: calc(5px + 1vw);
     /* background-color: orange; */
 
     background-color: white;
