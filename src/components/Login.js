@@ -14,6 +14,7 @@ function Login() {
   const[username, setUsername] = useState("")
   const[password, setPassword] = useState("")
   const[submittedForm, setSubmittedForm] = useState(false)
+  const [submittedIncorrect, setSubmittedIncorrect] = useState(false)
   const[users, setUsers] = useState({
     username: "",
     password: ""
@@ -48,20 +49,14 @@ function Login() {
           userCollectionID = username + "_collection"
           return <Navigate to= "/LoginSuccess" ></Navigate>; 
         }
-        else
-        {
-          // console.log("Username " + username  + ", password: " + password
-          // + " does not match " + users[i].username + " and " + users[i].password)
-        }
-
     }
       if(i == len)
       {
         console.log("Wrong username/password")
-        resetUsername(); 
-        resetPassword(); 
-        resetSubmit(); 
-        return <Navigate to= "/LoginFail"></Navigate>; 
+        resetUsername()
+        resetPassword()
+        resetSubmit()
+        setSubmittedIncorrect(true)
       }
   }
 
@@ -70,7 +65,7 @@ function Login() {
     <div className = "LoginContainer">
       <div className="Login">
         <img src = "https://i.imgur.com/on0rQlH.png" alt="wen2eat logo"></img>
-        <LoginForm username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} toCreate={() => setCreatingAccount(true)}></LoginForm>
+        <LoginForm username={username} password={password} setUsername = {setUsername} setPassword = {setPassword} setSubmittedForm = {() => setSubmittedForm(true)} resetUsername = {resetUsername} resetPassword = {resetPassword} resetSubmit = {resetSubmit} toCreate={() => setCreatingAccount(true)} triedIncorrect={submittedIncorrect}></LoginForm>
         {doAuthenticate()}
       </div>
     </div>
