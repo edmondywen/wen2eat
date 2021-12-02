@@ -5,16 +5,14 @@
     grid-area: "Pantry";
     flex-direction: column;
     align-items: center;
-    /* border-top-style: solid; */
-    /* border-top-color: #F2D4B7; */
-    /* border-right-style: solid;
-    border-right-color: black; */
+
     height: fit-content;
     margin-right: calc(5px + 1vw);
-    /* background-color: orange; */
+    margin-left: calc(5px + 1vw);
     background-color: white;
 
-    height: 100vh;
+    height:700px;
+    overflow: auto;
 
     border-radius: 10px;
     border-style: solid;

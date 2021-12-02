@@ -8,6 +8,9 @@
     border-radius: 10px;
     border-style: solid;
     padding-left: calc(10px + 1vh);
+    padding-right: calc(10px + 1vh);
+    margin-right: calc(3px + 0.5vw);
+    margin-left: calc(3px + 0.5vw);
 }
 
 .recs-button{
