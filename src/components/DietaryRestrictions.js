@@ -31,10 +31,9 @@ function DietaryRestrictions({onFlip, DietSet, IntolerancesSet, DietList, Intole
                         {diet_options.map((option) => {
                             return(
                                 <div>
-                                    <input type="radio" id={option} name="diet" value ={option} onChange={() => DietSet(option)} isChecked={DietList === option}/>
+                                    <input type="radio" id={option} name="diet" onClick={() => (DietList !== option) ? DietSet(option) : DietSet("")} checked={DietList === option}/>
                                     <label for={option}>{option}</label>
                                 </div>
-
                             )
                         })}
                     </form>
