@@ -21,11 +21,12 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
     const [favs, setFavs] = useState([])
 
     const setupFirestoreListener = () => {
-      console.log(db);
+      // console.log(db);
       return onSnapshot(collection(db, collectionName), (snapshot) => 
         setFavs(snapshot.docs.map((doc) => (doc.data().id))))
     }
     useEffect(setupFirestoreListener, []);
+    useEffect(()=>getRecipe(currentKey), [page])
     
     /*
         Need function to somehow get recommendations from database
@@ -51,7 +52,7 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         if(data.status === 'failure')
         {
             if(key === APIKEY.length-1)
@@ -118,8 +119,6 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
           let summary = rec.summary.replace( /(<([^>]+)>)/ig, '');
           let index = summary.indexOf("All things considered, we decided this recipe deserves a spoonacular score");
           summary = summary.slice(0, index); //remove a weird spoonacular score section in the description 
-          console.log("favs")
-          console.log(favs)
           return (<RecipeCard 
             toggleFav={toggleFav}
             favs={favs}
@@ -182,12 +181,12 @@ function Recs({ingredients, dietaryRestrictions, intolerances}) {
         <div className="Recs">
             <h1>Recommendations</h1>
             {/* TODO: wrap this in a div so that I can arrange the layout of the buttons or I could add margin. make buttons the same size */}
-            <button className = "recs-button" onClick={() => getRecipe(currentKey)}>Get Recepies! 🥧</button>
+            <button className = "recs-button" onClick={() => {setPage(0);getRecipe(currentKey)}}>Get Recepies! 🥧</button>
 
             <button className = "recs-button" onClick={() => getRecipeByID(currentKey)}> Show Favorites ★</button>
             {getAllRecipes()}
-            {(page !== 0 ) ? <button className = "recs-button" onClick={()=>{setPage(page-1);getRecipe(currentKey)}}> Back </button> : null}
-            {(recipe.length === 10 && page < 90) ? <button className = "recs-button" onClick={()=>{setPage(page+1);getRecipe(currentKey)}}> Next </button> : null}
+            {(page !== 0 ) ? <button className = "recs-button" onClick={()=> setPage(page-1)}> Back </button> : null}
+            {(recipe.length === 10 && page < 90) ? <button className = "recs-button" onClick={()=>setPage(page+1)}> Next </button> : null}
             
         </div>   
     );
